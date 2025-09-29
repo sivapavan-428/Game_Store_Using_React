@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaCartShopping, FaMagnifyingGlass } from "react-icons/fa6"; // added search icon
 import "./Toptool.css";
 import { CartContext } from "../utils/CartContext";
+import { CgProfile } from "react-icons/cg";
 
 function Toptool() {
   const { cartItems } = useContext(CartContext);
@@ -25,7 +26,11 @@ function Toptool() {
         </div>
       </Link>
 
-      <Link to="/login" className="signin-btn">Sign In</Link>
+      <div className="profile">
+        <Link to="/profile">
+        <CgProfile />
+        </Link>
+      </div>
     </div>
   );
 }

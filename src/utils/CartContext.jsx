@@ -9,7 +9,7 @@ export const CartProvider = ({ children }) => {
     // Check if game already in cart
     if (!cartItems.find((item) => item.id === game.id)) {
       setCartItems([...cartItems, game]);
-      alert(`${game.name} added to cart!`);
+      // alert(`${game.name} added to cart!`);
     } else {
       alert(`${game.name} is already in your cart.`);
     }

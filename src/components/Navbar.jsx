@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { CgGames } from "react-icons/cg";
 import { GiHamburgerMenu } from "react-icons/gi"; // Hamburger icon
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -29,12 +30,16 @@ function Navbar() {
           <NavLink to="/categories" className={({ isActive }) => (isActive ? "active" : "")}>Categories</NavLink>
         </li>
         <li>
-          <NavLink to="/library" className={({ isActive }) => (isActive ? "active" : "")}>My Library</NavLink>
+          <NavLink to="/library" className={({ isActive }) => (isActive ? "active" : "")}>Library</NavLink>
         </li>
         <li>
           <NavLink to="/cart" className={({ isActive }) => (isActive ? "active" : "")}>Cart</NavLink>
         </li>
       </ul>
+
+      <div className="signin">
+        <Link to="/login" className="signin-btn">Sign In</Link>
+      </div>
     </nav>
   );
 }

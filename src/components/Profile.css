@@ -1,0 +1,255 @@
+/* Profile.css */
+.profile-page {
+  max-width: 900px;
+  margin: 5rem auto;
+  padding: 20px;
+  background-color: #1f2937;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.profile-page .remaining-details{
+  margin: 2% 10%;
+}
+
+.profile-page h1 {
+  text-align: center;
+  color: #ff9800;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  margin-bottom: 20px;
+}
+.details{
+  margin-left: 3rem;
+}
+
+.name{
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+  color: #7ca4a5;
+}
+
+.email{
+  font-size: 1.2rem;
+  color: rgb(124, 164, 165);
+
+}
+.profile-sectionn {
+  background-color: rgba(30, 30, 30, 0.5);
+  padding: 15px 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-section{
+  background-color: rgba(68, 66, 66, 0.158);
+
+  margin: 10px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.remaining-details{
+  background-color: #1e1e1e;
+  padding: 1.5rem;
+  border-radius: 10px;
+  
+}
+
+/* .profile-section:hover,
+.profile-sectionn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+} */
+
+.profile-sectionn {
+  gap: 15px;
+}
+
+.profile-sectionn .details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.profile-sectionn svg {
+  font-size: 3rem;
+  color: #ff9800;
+}
+
+/* .view-btn,
+.logout-btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.2s ease;
+} */
+
+
+.details .edit-btn {
+  background-color: rgba(68, 66, 66, 0.158);
+  color: #837474;
+  width: fit-content;
+  transition: 0.2s ease-in-out;
+}
+
+.details .edit-btn:hover {
+  color: rgb(196, 192, 192);
+  background-color: rgba(68, 66, 66, 0.158);
+}
+
+/* View Buttons */
+.view-btn {
+  /* background-color: #ff9800;
+  color: #121212;
+  width: 100%;
+  text-align: center; */
+  color: antiquewhite;
+}
+
+.view-btn:hover {
+  /* background-color: #e68a00; */
+}
+
+/* Logout Button */
+.logout-btn {
+  background-color: rgba(161, 129, 129, 0.158);
+  color: antiquewhite;
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-section{
+  align-items: center;
+  justify-content: center;
+}
+.profile-pic{
+  padding-left: 3rem;
+}
+
+.logout-btn:hover {
+  background-color: rgba(161, 129, 129, 0.158);
+  color: antiquewhite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-page {
+    margin: 30px 10px;
+    padding: 15px;
+  }
+
+  .profile-section,
+  .profile-sectionn {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .profile-sectionn svg {
+    font-size: 2.5rem;
+  }
+
+  .edit-btn,
+  .view-btn,
+  .logout-btn {
+    width: 100%;
+  }
+}
+
+.back-arrow {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.back-arrow:hover {
+  color: #60a5fa; 
+}
+
+/* make the profile container the positioning context */
+.profile-page {
+  position: relative;       /* <- important */
+  padding-top: 56px;        /* leave room for the arrow + header */
+}
+
+/* back arrow: small, fixed to top-left of the profile container */
+.profile-page .back-arrow {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+
+  /* force a compact box */
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* appearance */
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 2000;
+
+  /* prevent global button rules from stretching it */
+  min-width: 0;
+  max-width: 44px;
+  padding: 0;
+}
+
+/* hover / focus */
+.profile-page .back-arrow:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateX(-3px);
+}
+
+/* make sure the icon inside doesn't capture pointer events */
+.profile-page .back-arrow svg {
+  pointer-events: none;
+}
+
+/* If you want the arrow fixed to viewport instead, use .back-arrow.fixed */
+.profile-page .back-arrow.fixed {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+}
+
+/* responsive: smaller on phones */
+@media (max-width: 480px) {
+  .profile-page .back-arrow {
+    width: 40px;
+    height: 40px;
+    top: 10px;
+    left: 10px;
+  }
+
+  .profile-page {
+    padding-top: 52px;
+  }
+}
+

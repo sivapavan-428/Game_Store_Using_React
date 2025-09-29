@@ -4,7 +4,7 @@
   background-color: #1f2937;
   min-height: 100vh;
   margin: 0px;
-  width: 80%;
+  width: 70%;
   position: fixed;
   right: 0px;
   bottom: 0;
@@ -13,6 +13,7 @@
 body{
  background-color: #1f2937; 
 }
+
 .categories-list {
   display: flex;
   gap: 20px;
