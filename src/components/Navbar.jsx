@@ -1,30 +1,42 @@
-import { Link, NavLink } from "react-router-dom";
-import React from "react";
-import { CgGames} from "react-icons/cg";
-import {FaxTwitter} from "react-icons/fa6"
+// src/components/Navbar.jsx
+import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { CgGames } from "react-icons/cg";
+import { GiHamburgerMenu } from "react-icons/gi"; // Hamburger icon
 import "./Navbar.css";
-import { FashoppingCart, FaHeart, FaUser } from "react-icons/fa";
 
 function Navbar() {
-    return (
-        <nav className="navbar">
-            <div className="logo-name">
-                <CgGames className="logo" />
-                <p>FEQuest</p>
-            </div>
-            <ul>
-                <li><Link to="/home">Home</Link></li>
-                <li><Link to="/catagories">Catagories</Link></li>
-                <li><Link to="/library">My Library</Link></li>
-                <li><Link to="/cart">cart</Link></li>
-            </ul>
-            <ul>
-                
-            </ul>
+  const [menuOpen, setMenuOpen] = useState(false);
 
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
-        </nav>
-    );
-};
+  return (
+    <nav className="navbar">
+      <div className="logo-name">
+        <CgGames className="logo" />
+        <p>FEQuest</p>
+      </div>
+
+      <div className="hamburger" onClick={toggleMenu}>
+        <GiHamburgerMenu />
+      </div>
+
+      <ul className={menuOpen ? "show" : ""}>
+        <li>
+          <NavLink to="/home" className={({ isActive }) => (isActive ? "active" : "")}>Home</NavLink>
+        </li>
+        <li>
+          <NavLink to="/categories" className={({ isActive }) => (isActive ? "active" : "")}>Categories</NavLink>
+        </li>
+        <li>
+          <NavLink to="/library" className={({ isActive }) => (isActive ? "active" : "")}>My Library</NavLink>
+        </li>
+        <li>
+          <NavLink to="/cart" className={({ isActive }) => (isActive ? "active" : "")}>Cart</NavLink>
+        </li>
+      </ul>
+    </nav>
+  );
+}
 
 export default Navbar;

@@ -1,22 +1,34 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import { FaCartShopping } from "react-icons/fa6";
-import { MdShoppingCart } from 'react-icons/md';
-import { BsCart } from 'react-icons/bs';
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { FaCartShopping, FaMagnifyingGlass } from "react-icons/fa6"; // added search icon
 import "./Toptool.css";
+import { CartContext } from "../utils/CartContext";
 
 function Toptool() {
-    return (
-        <div className="toptool">
-            <a href="">
-                <div className="cart">
-                    <FaCartShopping size={25} color="black" />
-                </div>
-            </a>
-            <Link to="/login">Sign In</Link>
-        
+  const { cartItems } = useContext(CartContext);
+
+  return (
+    <div className="toptool">
+      <div className="search-container">
+        <FaMagnifyingGlass className="search-icon" />
+        <input
+          type="search"
+          name="SearchBTN"
+          id="searchbtn"
+          placeholder="Search games..." />
+      </div>
+
+      <Link to="/cart">
+        <div className="cart">
+          <FaCartShopping size={25} color="white" />
+          {cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
         </div>
-    );
-};
+      </Link>
+
+      <Link to="/login" className="signin-btn">Sign In</Link>
+    </div>
+  );
+}
 
 export default Toptool;
+
