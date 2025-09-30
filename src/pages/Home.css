@@ -1,107 +1,160 @@
+
 .home-page {
-  flex: 1; 
-  padding: 30px;
-  min-height: 100vh;
-  background-color: #1f2937;
-  color: #fff;
-  overflow-x: hidden;
-  width: 70%;
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  top: 10%;
+  padding: 80px 40px 40px; 
+  background-color: #111827;
+  color: white;
+  margin-left: 18%; 
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+.game-section {
+  margin-bottom: 50px;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  box-shadow: 4px 8px 10px rgb(37, 37, 66);
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #171e2e;
+}
+
+.game-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
   color: #ff9800;
 }
 
-.games-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+.games-carousel {
+  display: flex;
   gap: 20px;
-  justify-items: center;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 4% 2% 10px 2%;
+}
+
+.games-carousel::-webkit-scrollbar {
+  height: 6px;
+}
+
+.games-carousel::-webkit-scrollbar-thumb {
+  background-color: #ff9800;
+  border-radius: 3px;
+}
+
+.games-carousel::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 
 .game-card {
-  width: 100%;
-  max-width: 220px;
-  background-color: #1f1f1f;
-  border-radius: 12px;
+  position: relative;
+  min-width: 220px;
+  border-radius: 16px;
   overflow: hidden;
+  flex-shrink: 0;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: auto;
+  
 }
 
 .game-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 20px 30px rgba(255, 152, 0, 0.6);
 }
 
 .game-card img {
   width: 100%;
-  height: 250px;
-  object-fit: cover;
+  display: block;
+  border-radius: 16px 16px 0 0;
+  transition: transform 0.4s ease;
 }
 
-.game-card h3 {
-  margin: 10px 0;
+.game-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Price Badge */
+.price-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ff9800;
+  color: #111827;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* Ribbon */
+.ribbon {
+  position: absolute;
+  top: 10px;
+  left: -30px;
+  background: #10b981;
+  color: white;
+  padding: 5px 50px;
+  transform: rotate(-45deg);
+  font-weight: bold;
+  font-size: 0.75rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Game Info & Buttons */
+.game-info {
+  padding: 12px;
+}
+
+.game-info h3 {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.game-info p {
+  font-size: 1rem;
+  margin-bottom: 10px;
   color: #ff9800;
-}
-
-.game-card p {
-  margin: 5px 0;
+  font-weight: bold;
 }
 
 .add-btn, .remove-btn {
-  padding: 8px 15px;
-  margin-bottom: 15px;
+  width: 100%;
+  padding: 8px 0;
+  border-radius: 8px;
   border: none;
-  border-radius: 5px;
   font-weight: bold;
   cursor: pointer;
-  color: #fff;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .add-btn {
-  background-color: #ff9800;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #fff;
 }
 
 .add-btn:hover {
-  background-color: #e68a00;
+  background: linear-gradient(135deg, #1e40af, #1e3a8a);
 }
 
 .remove-btn {
-  background-color: #f44336;
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  color: #fff;
 }
 
 .remove-btn:hover {
-  background-color: #d32f2f;
+  background: linear-gradient(135deg, #b91c1c, #991b1b);
 }
 
-
+/* Responsive */
 @media (max-width: 768px) {
-  .app-container {
-    flex-direction: column;
-  }
-
-  .navbar {
-    width: 100%;
-    min-width: 0;
-    text-align: center;
-  }
-
   .home-page {
-    width: 100%;
-    padding: 20px;
+    padding: 80px 20px 20px;
+    margin-left: 0;
   }
 
-  .games-list {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  .game-card {
+    min-width: 180px;
   }
 }

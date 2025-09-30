@@ -1,162 +1,254 @@
-
-.navbar {
+/* ===== COMMON STYLES ===== */
+.sidebar {
+  background: linear-gradient(180deg, #071025, #0d1726);
+  color: white;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: start;
-  padding: 1.2rem 0.9rem;
-  background: linear-gradient(180deg, #1f2937, #111827);
-  color: #fff;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 15%;
-  height: 100vh;
-  z-index: 1000;
+  padding: 20px;
   transition: all 0.3s ease;
-  gap: 13rem;
-}
-
-.logo {
-  font-size: 2.2rem;
-  color: #ff9800;
-  transition: transform 0.3s ease;
-  position: relative;
-  top: 3px;
+  z-index: 1200;
 }
 
 .logo-name {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 1.6rem;
+  gap: 8px; 
   font-weight: bold;
-  color: #fff;
+  margin-bottom: 20px;
+  padding-left: 2%;
+  justify-content: center;
+}
+.logo-name p {
+  font-size: 2rem;
+  position: relative;
+  top: -3px;
+}
+
+.logo {
+  font-size: 3rem;
+  color: #ff9800;
+}
+
+.search-containerr {
+  display: none;
+  position: relative;
+  flex: 1 1 480px;
+  max-width: 350px;
+  min-width: 150px;
+}
+
+.search-iconn {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 1.05rem;
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+#searchbtn {
+  width: 100%;
+  height: 46px;
+  padding: 10px 14px 10px 48px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--glass-border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.008));
+  color: var(--text);
+  font-size: 0.95rem;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.55), inset 0 -1px 0 rgba(255, 255, 255, 0.01);
+  transition: transform 180ms cubic-bezier(.2, .9, .3, 1), box-shadow 180ms;
+  caret-color: var(--accent);
+  -webkit-appearance: none;
+  outline: none;
+}
+
+#searchbtn::placeholder {
+  color: var(--muted);
+  opacity: 0.9;
+}
+
+#searchbtn:focus {
+  /* transform: translateY(-2px); */
+  box-shadow: 0 12px 36px rgba(37, 99, 235, 0.12);
+  border-color: rgba(96, 165, 250, 0.44);
+}
+
+#searchbtn:focus-visible {
+  outline: 3px solid rgba(96, 165, 250, 0.12);
+  outline-offset: 2px;
 }
 
 ul {
-  display: flex;
-  flex-direction: column;
   list-style: none;
-  gap: 2.5rem;
-  padding: 0;
-  margin: 0;
-  font-size: 1.5rem;
+  padding: 10%;
+  margin: 10%;
+  flex: 1;
 }
 
-li a {
+ul li {
+  margin: 12px 0;
+  font-size: 3rem;
+
+}
+
+ul li a {
   text-decoration: none;
   color: #e5e7eb;
-  font-weight: 500;
-  padding: 8px 12px;
+  font-size: 1.2rem;
+  transition: 0.3s;
+}
+
+ul li a:hover {
+  color: #ff9800;
+  text-decoration: none;
+
+}
+
+.auth-btn {
+  display: none;
+}
+
+.signin-btn,
+.profile-btn {
+  width: 100%;
+  padding: 10px;
   border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-li a:hover {
-  background: #ff9800;
-  color: #121212;
-  transform: translateX(5px);
-}
-
-.active {
-  background: #ff9800;
-  color: #121212;
+  border: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
 .signin-btn {
-  padding: 0.7rem 3rem;
   background: #2563eb;
-  color: #fff;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+}
+
+.profile-btn {
+  background: #10b981;
 }
 
 .signin-btn:hover {
   background: #1e40af;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.profile-btn:hover {
+  background: #059669;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
+
+/* ===== DESKTOP SIDEBAR ===== */
+.desktop-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 16%;
+  min-width: 220px;
+  height: 100vh;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Cart icon on desktop top-right */
+.desktop-cart {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  font-size: 1.5rem;
+  color: #ff9800;
+}
+
+/* ===== MOBILE TOPBAR ===== */
+.mobile-topbar {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: #1f2937;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1100;
+}
+
+.right-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon-btn {
+  font-size: 1.5rem;
+  color: #ff9800;
 }
 
 .hamburger {
-  display: none;
-  cursor: pointer;
   font-size: 1.8rem;
-  color: #fff;
+  cursor: pointer;
 }
 
-@media (max-width: 1024px) {
-  .navbar {
-    width: 20%;
-  }
+/* ===== MOBILE DRAWER ===== */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  max-width: 300px;
+  height: 100%;
 }
 
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: row;
-    width: 100%;
-    height: auto;
-    padding: 10px 20px;
-    justify-content: space-between;
-  }
-
-  ul {
-    flex-direction: row;
-    gap: 1.5rem;
-  }
-
-  li a {
-    font-size: 1rem;
-    padding: 6px 10px;
-  }
+.mobile-drawer.open {
+  left: 0;
 }
 
-@media (max-width: 480px) {
-  .navbar {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 12px 15px;
-  }
-
-  ul {
+/* ===== RESPONSIVE RULES ===== */
+@media (max-width: 900px) {
+  .desktop-sidebar {
     display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    background: #1f2937;
-    gap: 1rem;
-    padding: 15px 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    animation: slideDown 0.3s ease forwards;
   }
 
-  ul.show {
+  .mobile-topbar {
     display: flex;
   }
+}
 
-  .hamburger {
+@media (max-width : 700px) {
+  .auth-btn {
     display: block;
+    margin-bottom: 60%;
   }
 
-  li a {
-    text-align: center;
-    padding: 10px;
-    font-size: 1.1rem;
+  .sidebar {
+    padding: 0;
+    width: 50%;
+    padding: 10%;
+  }
+
+  .search-bar{
+    max-width: 70%;
+    padding: 10%;
+
   }
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.active-link {
+  color: #ff9800;
+  /* highlight color */
+  font-weight: bold;
 }

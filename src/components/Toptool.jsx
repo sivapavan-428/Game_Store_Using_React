@@ -1,39 +1,51 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { FaCartShopping, FaMagnifyingGlass } from "react-icons/fa6"; // added search icon
+import { FaCartShopping, FaMagnifyingGlass } from "react-icons/fa6";
+import { CgProfile } from "react-icons/cg";
 import "./Toptool.css";
 import { CartContext } from "../utils/CartContext";
-import { CgProfile } from "react-icons/cg";
+import { AuthContext } from "../utils/AuthContext";  // 👈 import auth
 
 function Toptool() {
   const { cartItems } = useContext(CartContext);
+  const { isLoggedIn, login, logout } = useContext(AuthContext); // 👈 use global state
 
   return (
     <div className="toptool">
       <div className="search-container">
-        <FaMagnifyingGlass className="search-icon" />
+        <FaMagnifyingGlass className="search-iconn" />
         <input
           type="search"
           name="SearchBTN"
           id="searchbtn"
-          placeholder="Search games..." />
+          placeholder="Search games..."
+        />
       </div>
 
       <Link to="/cart">
         <div className="cart">
-          <FaCartShopping size={25} color="white" />
-          {cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
+          <FaCartShopping size={25} />
+          {cartItems.length > 0 && (
+            <span className="cart-count">{cartItems.length}</span>
+          )}
         </div>
       </Link>
 
-      <div className="profile">
-        <Link to="/profile">
-        <CgProfile />
-        </Link>
+      <div className="auth">
+        {isLoggedIn ? (
+          <Link to="/profile" className="profile-icon">
+            <CgProfile size={25} />
+          </Link>
+        ) : (
+          <button className="signin-btnn">
+            <Link to="/login" style={{ color: "white", textDecoration: "none" }}>
+              Sign In
+            </Link>
+          </button>
+        )}
       </div>
     </div>
   );
 }
 
 export default Toptool;
-

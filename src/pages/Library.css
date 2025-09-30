@@ -1,31 +1,92 @@
 .library-page {
-  padding: 30px;
+  padding: 80px 40px 40px; /* space for navbar */
+  background-color: #111827;
   color: white;
-  background-color: #1f2937;
+  position: relative;
+  margin-left: 18%; /* space for permanent sidebar on desktop */
   min-height: 100vh;
-  width: 80%;
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  top: 10%;
 }
 
+.library-page h1 {
+  font-size: 2rem;
+  color: #ff9800;
+  margin-bottom: 30px;
+}
+
+/* Library list layout */
 .library-list {
   display: flex;
-  flex-wrap: wrap;
   gap: 20px;
-  justify-content: center;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
 }
 
+/* Game card style (matches Home page) */
 .library-card {
-  width: 200px;
+  position: relative;
+  min-width: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   text-align: center;
-  background-color: #1e1e1e;
-  border-radius: 10px;
-  padding: 10px;
 }
 
+.library-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 20px 30px rgba(255, 152, 0, 0.6);
+}
+
+/* Game image */
 .library-card img {
   width: 100%;
-  border-radius: 5px;
+  display: block;
+  border-radius: 16px 16px 0 0;
+  transition: transform 0.4s ease;
+}
+
+.library-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Game info */
+.library-card h3 {
+  font-size: 1.1rem;
+  margin: 10px 0 5px;
+  color: #fff;
+}
+
+.library-card p {
+  font-size: 1rem;
+  color: #ff9800;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Empty library text */
+.library-page p {
+  font-size: 1.2rem;
+  color: #9ca3af;
+  align-items: start;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .library-page {
+    margin-left: 0;
+    padding: 100px 20px 20px;
+  }
+  .library-list {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .library-card {
+    min-width: 180px;
+  }
 }

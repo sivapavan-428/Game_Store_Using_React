@@ -1,46 +1,130 @@
-// src/components/Navbar.jsx
-import { NavLink } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import {Link, NavLink } from "react-router-dom";
 import { CgGames } from "react-icons/cg";
-import { GiHamburgerMenu } from "react-icons/gi"; // Hamburger icon
+import { GiHamburgerMenu } from "react-icons/gi";
+import { FaCartShopping, FaMagnifyingGlass } from "react-icons/fa6";
+import { FiSearch, FiShoppingCart, FiUser } from "react-icons/fi";
+import { CartContext } from "../utils/CartContext";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { cartItems } = useContext(CartContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
+  const closeMenu = () => setMenuOpen(false);
+
+  const handleAuth = () => {
+    setIsLoggedIn(!isLoggedIn);
+    closeMenu();
+  };
 
   return (
-    <nav className="navbar">
-      <div className="logo-name">
-        <CgGames className="logo" />
-        <p>FEQuest</p>
+    <>
+
+      <aside className="sidebar desktop-sidebar">
+        <div className="logo-name">
+          <CgGames className="logo" />
+          <p>FEQuest</p>
+        </div>
+
+        <div className="search-containerr">
+          {/* <FaMagnifyingGlass className="search-iconn" /> */}
+          <input
+            type="search"
+            name="SearchBTN"
+            id="searchbtn"
+            placeholder="Search games..." />
+        </div>
+
+        <ul>
+          <li>
+            <NavLink
+              to="/home"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+              onClick={closeMenu}>
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/categories"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+              onClick={closeMenu}>
+              Categories
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/library"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+              onClick={closeMenu}>
+              Library
+            </NavLink>
+          </li>
+        </ul>
+
+
+        <div className="auth-btn">
+          {isLoggedIn ? (
+            <button className="profile-btn" onClick={handleAuth}><FiUser /> Profile</button>
+          ) : (
+            <button className="signin-btn" onClick={handleAuth}><FiUser /> Login</button>
+          )}
+        </div>
+      </aside>
+
+      {/* Topbar for mobile */}
+      <div className="topbar mobile-topbar">
+        <div className="logo-name">
+          <CgGames className="logo" />
+          <p>FEQuest</p>
+        </div>
+
+        <div className="right-actions">
+          <Link to="/cart">
+            <div className="cart">
+              <FaCartShopping size={25} />
+              {cartItems.length > 0 && (
+                <span className="cart-count">{cartItems.length}</span>
+              )}
+            </div>
+          </Link>
+          <GiHamburgerMenu className="hamburger" onClick={toggleMenu} />
+        </div>
       </div>
 
-      <div className="hamburger" onClick={toggleMenu}>
-        <GiHamburgerMenu />
-      </div>
+      {/* Mobile Drawer */}
+      <aside className={`sidebar mobile-drawer ${menuOpen ? "open" : ""}`}>
 
-      <ul className={menuOpen ? "show" : ""}>
-        <li>
-          <NavLink to="/home" className={({ isActive }) => (isActive ? "active" : "")}>Home</NavLink>
-        </li>
-        <li>
-          <NavLink to="/categories" className={({ isActive }) => (isActive ? "active" : "")}>Categories</NavLink>
-        </li>
-        <li>
-          <NavLink to="/library" className={({ isActive }) => (isActive ? "active" : "")}>Library</NavLink>
-        </li>
-        <li>
-          <NavLink to="/cart" className={({ isActive }) => (isActive ? "active" : "")}>Cart</NavLink>
-        </li>
-      </ul>
+        <div className="logo-name">
+          <CgGames className="logo" />
+          <p>FEQuest</p>
+        </div>
 
-      <div className="signin">
-        <Link to="/login" className="signin-btn">Sign In</Link>
-      </div>
-    </nav>
+        <div className="search-bar">
+          <input type="text" placeholder="Search games..." />
+        </div>
+
+        <ul>
+          <li><NavLink to="/home" onClick={closeMenu}>Home</NavLink></li>
+          <li><NavLink to="/categories" onClick={closeMenu}>Categories</NavLink></li>
+          <li><NavLink to="/library" onClick={closeMenu}>Library</NavLink></li>
+        </ul>
+
+        <div className="auth-btn">
+          {isLoggedIn ? (
+            <button className="profile-btn" onClick={handleAuth}><FiUser /> Profile</button>
+          ) : (
+            <button className="signin-btn" onClick={handleAuth}><FiUser /> Login</button>
+          )}
+        </div>
+      </aside>
+
+      {/* Overlay */}
+      {menuOpen && <div className="overlay" onClick={closeMenu}></div>}
+    </>
   );
 }
 

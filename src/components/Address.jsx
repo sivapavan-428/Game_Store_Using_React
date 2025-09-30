@@ -90,10 +90,10 @@ function Address() {
         ))}
       </div>
 
+    
       <button className="add-address-btn" onClick={() => openModal({})}>
-        + Add Address
+        Add Address
       </button>
-
       <button onClick={() => navigate(-1)} className="back-btn">
         Back
       </button>
@@ -157,8 +157,7 @@ function Address() {
               <button
                 onClick={handleSave}
                 className="save-btn"
-                disabled={!isFormValid()}
-              >
+                disabled={!isFormValid()}>
                 Save
               </button>
               <button onClick={closeModal} className="cancel-btn">

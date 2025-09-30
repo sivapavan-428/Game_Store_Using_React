@@ -3,9 +3,8 @@ import "./Cart.css";
 import { CartContext } from "../utils/CartContext";
 import { useNavigate } from "react-router-dom";
 
-
 function Cart() {
-  const { cartItems, removeFromCart, purchaseAll } = useContext(CartContext);
+  const { cartItems, removeFromCart } = useContext(CartContext);
   const navigate = useNavigate();
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price, 0);
@@ -16,27 +15,28 @@ function Cart() {
 
   return (
     <div className="cart-page">
-      {/* <h1>Shopping Cart</h1> */}
       {cartItems.length === 0 ? (
-        <p>Your cart is empty</p>
+        <p className="empty-cart">🛒 Your cart is empty</p>
       ) : (
         <div className="cart-content">
+
           <div className="cart-items-border">
             <div className="cart-items">
               {cartItems.map((item) => (
                 <div className="cart-card" key={item.id}>
                   <img src={item.img} alt={item.name} />
                   <div className="cart-info">
-                    {/* Left side: details */}
                     <div className="cart-details">
                       <h3>{item.name}</h3>
                       <p>Awesome game for your library</p>
                     </div>
-
-                    {/* Right side: price + button */}
                     <div className="cart-actions">
-                      <p>{item.price}.Rs</p>
-                      <button onClick={() => removeFromCart(item.id)}>Remove</button>
+                      <span className="price">{item.price}.Rs</span>
+                      <button
+                        className="remove-btn"
+                        onClick={() => removeFromCart(item.id)}>
+                        Remove
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -46,16 +46,18 @@ function Cart() {
 
           <div className="cart-summary">
             <h3>Price Summary</h3>
-            <p>Subtotal: {subtotal.toFixed()}.Rs</p>
-            <p>GST (18%): {gst.toFixed()}.Rs</p>
-            <p>Platform Charges: {platformCharges.toFixed()}.Rs</p>
-            <p>Delivery Charges: {deliveryCharges.toFixed()}.Rs</p>
+            <div className="summary-details">
+              <p>Subtotal <span>{subtotal.toFixed()}.Rs</span></p>
+              <p>GST (18%) <span>{gst.toFixed()}.Rs</span></p>
+              <p>Platform Charges <span>{platformCharges}.Rs</span></p>
+              <p>Delivery Charges <span>{deliveryCharges}.Rs</span></p>
+            </div>
             <hr />
-            <h3>Total: {total.toFixed()}.Rs</h3>
+            <h2 className="total">Total: {total.toFixed()}.Rs</h2>
             <button
               className="buy-btn"
               onClick={() => navigate("/checkout")}>
-              Buy
+              Proceed to Checkout
             </button>
           </div>
         </div>

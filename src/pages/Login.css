@@ -1,71 +1,225 @@
-.login, .signup {
-  max-width: 400px;
-  margin: 50px auto;
-  background-color: #1f1f1f;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  color: #fff;
+/* Container for centering */
+.login-container {
+  height: auto;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0f172a, #111827);
+  padding: 20px;
+  margin: 5%;
 }
-
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #ff9800;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  border: 1px solid #555;
-  background-color: #121212;
-  color: white;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #ff9800;
-  border: none;
-  color: #121212;
-  font-weight: bold;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-button:hover {
-  background-color: #e68a00;
-}
-
-a {
-  color: #ff9800;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
+body{
+  background: linear-gradient(135deg, #0f172a, #111827);
 }
 
 .login-options {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: #ccc;
+ 
 }
 
-.accounts button {
-  width: 48%;
-  padding: 8px;
-  border-radius: 5px;
+.login-options label {
+  display: flex;         /* horizontal alignment */
+  align-items: center;   /* vertically centered */
+  gap: 8px;              /* space between checkbox and text */
+  cursor: pointer;
+  border: none;
+}
+
+.login-options input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #ff9800;  /* modern orange checkbox color */
+}
+
+.login-options a {
+  color: #ff9800;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-options a:hover {
+  text-decoration: underline;
+}
+
+
+/* Card */
+.login-card {
+  background: rgba(31, 31, 31, 0.85);
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  
+}
+
+/* Headings */
+.login-card h2 {
+  font-size: 2rem;
+  color: #ff9800;
+  margin-bottom: 8px;
+}
+
+.login-card .login-subtitle {
+  font-size: 0.95rem;
+  color: #a1a1aa;
+  margin-bottom: 25px;
+}
+
+/* Inputs */
+.login-card input {
+  width: 91%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background-color: #1a1a1a;
+  color: #fff;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.login-card input:focus {
+  border-color: #ff9800;
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+}
+
+/* Options */
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+}
+
+.login-options input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.login-options a {
+  color: #ff9800;
+  text-decoration: none;
+}
+
+.login-options a:hover {
+  text-decoration: underline;
+}
+
+/* Login button */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  background: linear-gradient(135deg, #1e40af, #1e3a8a);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  color: #9ca3af;
+}
+
+.divider span {
+  flex: 1;
+  /* border-bottom: 1px solid #374151; */
+  line-height: 0.1em;
+  margin: 0 10px;
+}
+
+/* Social login buttons */
+.social-login {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
   border: none;
   cursor: pointer;
   font-weight: bold;
+  transition: all 0.3s ease;
+  color: #fff;
 }
 
-.accounts button a {
-  color: inherit;
+.social-btn .icon {
+  font-size: 1.2rem;
+}
+
+/* Google */
+.social-btn.google {
+  background: #adacab;
+}
+
+.social-btn.google:hover {
+  background: #adacab;
+}
+
+/* Facebook */
+.social-btn.facebook {
+  background: #1877f2;
+}
+
+.social-btn.facebook:hover {
+  background: #0f5cd7;
+}
+
+/* Signup text */
+.signup-text {
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+.signup-text a {
+  color: #ff9800;
   text-decoration: none;
+  font-weight: bold;
+}
+
+.signup-text a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px 20px;
+  }
+
+  .login-btn, .social-btn {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
 }

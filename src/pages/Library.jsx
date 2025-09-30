@@ -1,26 +1,23 @@
-// src/pages/Library.jsx
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { CartContext } from "../utils/CartContext";
 import "./Library.css";
 
-const ownedGames = [
-  { id: 1, name: "CyberQuest", img: "https://via.placeholder.com/200x250" },
-  { id: 2, name: "Pixel Racer", img: "https://via.placeholder.com/200x250" },
-];
-
 function Library() {
-  const [games] = useState(ownedGames);
+  const { purchasedGames } = useContext(CartContext); // We'll track purchased games
 
   return (
     <div className="library-page">
       <h1>My Library</h1>
-      {games.length === 0 ? (
+      {purchasedGames.length === 0 ? (
         <p>You don't own any games yet!</p>
       ) : (
-        <div className="library-list">
-          {games.map((game) => (
-            <div className="library-card" key={game.id}>
+        <div className="games-carousel">
+          {purchasedGames.map((game) => (
+            <div className="game-card" key={game.id}>
               <img src={game.img} alt={game.name} />
-              <h3>{game.name}</h3>
+              <div className="game-info">
+                <h3>{game.name}</h3>
+              </div>
             </div>
           ))}
         </div>

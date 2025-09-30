@@ -1,50 +1,160 @@
+/* Categories Page Container */
 .categories-page {
-  padding: 30px;
+  padding: 80px 40px 40px;
+  background-color: #111827;
   color: white;
-  background-color: #1f2937;
-  min-height: 100vh;
-  margin: 0px;
-  width: 70%;
-  position: fixed;
-  right: 0px;
-  bottom: 0;
-  top: 10%;
-}
-body{
- background-color: #1f2937; 
+  margin-left: 18%; /* space for sidebar */
 }
 
-.categories-list {
+/* Category Section */
+.category-section {
+  margin-bottom: 50px;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  box-shadow: 4px 8px 10px rgb(37, 37, 66);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.category-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #ff9800;
+}
+
+/* Horizontal Scroll Carousel */
+.games-carousel {
   display: flex;
   gap: 20px;
-  flex-wrap: wrap;
-}
-h1{
-  text-align: center;
-  font-size: 2rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 4% 2% 10px 2%;
 }
 
-.categories-list{
-  text-align: center;
-  justify-content: center;
+.games-carousel::-webkit-scrollbar {
+  height: 6px;
 }
 
-.category-card {
-  width: 150px;
-  text-align: center;
-  background-color: #1e1e1e;
-  border-radius: 10px;
-  padding: 10px;
-  cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
-}
-
-.category-card img {
-  width: 100%;
-  border-radius: 5px;
-}
-
-.category-card:hover {
+.games-carousel::-webkit-scrollbar-thumb {
   background-color: #ff9800;
+  border-radius: 3px;
+}
+
+.games-carousel::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Game Card - Same as Home page */
+.game-card {
+  position: relative;
+  min-width: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  text-align: center;
+}
+
+.game-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 20px 30px rgba(255, 152, 0, 0.6);
+}
+
+.game-card img {
+  width: 100%;
+  display: block;
+  border-radius: 16px 16px 0 0;
+  transition: transform 0.4s ease;
+}
+
+.game-card:hover img {
   transform: scale(1.05);
+}
+
+/* Price Badge */
+.price-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ff9800;
+  color: #111827;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* Ribbon */
+.ribbon {
+  position: absolute;
+  top: 10px;
+  left: -30px;
+  background: #10b981;
+  color: white;
+  padding: 5px 50px;
+  transform: rotate(-45deg);
+  font-weight: bold;
+  font-size: 0.75rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Game Info & Buttons */
+.game-info {
+  padding: 12px;
+}
+
+.game-info h3 {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.game-info p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #ff9800;
+  font-weight: bold;
+}
+
+.add-btn, .remove-btn {
+  width: 100%;
+  padding: 8px 0;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-btn {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #fff;
+}
+
+.add-btn:hover {
+  background: linear-gradient(135deg, #1e40af, #1e3a8a);
+}
+
+.remove-btn {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  color: #fff;
+}
+
+.remove-btn:hover {
+  background: linear-gradient(135deg, #b91c1c, #991b1b);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .categories-page {
+    padding: 80px 20px 20px;
+    margin-left: 0;
+  }
+
+  .game-card {
+    min-width: 180px;
+  }
 }
