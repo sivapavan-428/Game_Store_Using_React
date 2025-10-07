@@ -4,6 +4,7 @@
   background-color: #111827;
   color: white;
   margin-left: 18%; 
+  margin-top: 2%;
 }
 
 .game-section {
@@ -74,7 +75,6 @@
   transform: scale(1.05);
 }
 
-/* Price Badge */
 .price-badge {
   position: absolute;
   top: 10px;
@@ -87,7 +87,6 @@
   font-size: 0.9rem;
 }
 
-/* Ribbon */
 .ribbon {
   position: absolute;
   top: 10px;
@@ -101,7 +100,6 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-/* Game Info & Buttons */
 .game-info {
   padding: 12px;
 }
@@ -147,14 +145,15 @@
   background: linear-gradient(135deg, #b91c1c, #991b1b);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .home-page {
     padding: 80px 20px 20px;
     margin-left: 0;
+    width: 75%;
   }
 
   .game-card {
     min-width: 180px;
   }
+
 }

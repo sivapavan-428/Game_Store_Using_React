@@ -4,12 +4,11 @@ import { FaCartShopping, FaMagnifyingGlass } from "react-icons/fa6";
 import { CgProfile } from "react-icons/cg";
 import "./Toptool.css";
 import { CartContext } from "../utils/CartContext";
-import { AuthContext } from "../utils/AuthContext";  // 👈 import auth
+import { AuthContext } from "../utils/AuthContext"; 
 
 function Toptool() {
   const { cartItems } = useContext(CartContext);
-  const { isLoggedIn, login, logout } = useContext(AuthContext); // 👈 use global state
-
+  const { isLoggedIn, login, logout } = useContext(AuthContext); 
   return (
     <div className="toptool">
       <div className="search-container">

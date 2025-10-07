@@ -1,4 +1,4 @@
-/* ===== COMMON STYLES ===== */
+
 .sidebar {
   background: linear-gradient(180deg, #071025, #0d1726);
   color: white;
@@ -16,8 +16,9 @@
   font-weight: bold;
   margin-bottom: 20px;
   padding-left: 2%;
-  justify-content: center;
+  justify-content: center;  
 }
+
 .logo-name p {
   font-size: 2rem;
   position: relative;
@@ -90,20 +91,18 @@ ul {
 ul li {
   margin: 12px 0;
   font-size: 3rem;
-
 }
 
 ul li a {
   text-decoration: none;
   color: #e5e7eb;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   transition: 0.3s;
 }
 
 ul li a:hover {
   color: #ff9800;
   text-decoration: none;
-
 }
 
 .auth-btn {
@@ -141,7 +140,6 @@ ul li a:hover {
   background: #059669;
 }
 
-/* Overlay */
 .overlay {
   position: fixed;
   top: 0;
@@ -152,7 +150,6 @@ ul li a:hover {
   z-index: 1000;
 }
 
-/* ===== DESKTOP SIDEBAR ===== */
 .desktop-sidebar {
   position: fixed;
   top: 0;
@@ -163,7 +160,6 @@ ul li a:hover {
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.5);
 }
 
-/* Cart icon on desktop top-right */
 .desktop-cart {
   position: fixed;
   top: 20px;
@@ -172,7 +168,6 @@ ul li a:hover {
   color: #ff9800;
 }
 
-/* ===== MOBILE TOPBAR ===== */
 .mobile-topbar {
   display: none;
   justify-content: space-between;
@@ -203,7 +198,6 @@ ul li a:hover {
   cursor: pointer;
 }
 
-/* ===== MOBILE DRAWER ===== */
 .mobile-drawer {
   position: fixed;
   top: 0;
@@ -217,7 +211,6 @@ ul li a:hover {
   left: 0;
 }
 
-/* ===== RESPONSIVE RULES ===== */
 @media (max-width: 900px) {
   .desktop-sidebar {
     display: none;
@@ -238,6 +231,7 @@ ul li a:hover {
     padding: 0;
     width: 50%;
     padding: 10%;
+    /* margin-left: 50px; */
   }
 
   .search-bar{

@@ -51,13 +51,14 @@ function SignUp() {
     <div className="signup">
       <h2>Create an Account</h2>
       <p>
-        Already have an account? <Link to="/login">Login</Link>
+        Already have an account? <Link to="/login" className="login-link">Login</Link>
       </p>
 
       <form onSubmit={handleSignUp}>
         <div className="fullName">
           <input
             type="text"
+            id="fname"
             placeholder="First Name"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -65,6 +66,7 @@ function SignUp() {
           />
           <input
             type="text"
+            id="lname"
             placeholder="Last Name"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -75,6 +77,7 @@ function SignUp() {
         <input
         className="email"
           type="email"
+          id="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -83,6 +86,7 @@ function SignUp() {
 
         <input
           className="passwords"
+          id="password"
           type="password"
           placeholder="Password"
           value={password}
@@ -91,6 +95,7 @@ function SignUp() {
         />
         <input
           type="password"
+          id="cpassword"
           className="passwords"
           placeholder="Confirm Password"
           value={confirmPassword}
@@ -109,14 +114,14 @@ function SignUp() {
 
         <button type="submit">Create Account</button>
       </form>
-
+      
       <p className="or-text">or register with</p>
       <div className="accounts">
         <button style={{background:"#adacab"}} className="google">
-          <a href="#" >Google</a>
+          <a href="https://accounts.google.com/" target="_blank" rel="noopener noreferrer">Google</a>
         </button>
         <button className="apple">
-          <a href="#">Apple</a>
+          <a href="http://facebook.com" target="_blank" rel="noopener noreferrer">Apple</a>
         </button>
       </div>
     </div>

@@ -22,7 +22,6 @@ function Navbar() {
 
   return (
     <>
-
       <aside className="sidebar desktop-sidebar">
         <div className="logo-name">
           <CgGames className="logo" />
@@ -65,7 +64,6 @@ function Navbar() {
           </li>
         </ul>
 
-
         <div className="auth-btn">
           {isLoggedIn ? (
             <button className="profile-btn" onClick={handleAuth}><FiUser /> Profile</button>
@@ -75,7 +73,6 @@ function Navbar() {
         </div>
       </aside>
 
-      {/* Topbar for mobile */}
       <div className="topbar mobile-topbar">
         <div className="logo-name">
           <CgGames className="logo" />
@@ -95,7 +92,6 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
       <aside className={`sidebar mobile-drawer ${menuOpen ? "open" : ""}`}>
 
         <div className="logo-name">
@@ -122,7 +118,6 @@ function Navbar() {
         </div>
       </aside>
 
-      {/* Overlay */}
       {menuOpen && <div className="overlay" onClick={closeMenu}></div>}
     </>
   );

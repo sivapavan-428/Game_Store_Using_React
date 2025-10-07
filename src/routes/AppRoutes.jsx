@@ -19,7 +19,7 @@ import Checkout from "../pages/Checkout";
 function AppRoutes() {
   return (
     <Routes>
-      {/* Pages with Navbar + Toptool */}
+    
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
@@ -29,7 +29,7 @@ function AppRoutes() {
 
       </Route>
 
-      {/* Pages without Navbar/Toptool */}
+    
       <Route element={<ProfileLayout />}>
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/personal" element={<PersonalInfo />} />
@@ -39,7 +39,7 @@ function AppRoutes() {
         <Route path="/profile/security" element={<Security />} />
       </Route>
 
-      {/* Auth Pages */}
+   
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />

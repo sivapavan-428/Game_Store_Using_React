@@ -1,12 +1,12 @@
-/* Categories Page Container */
+
 .categories-page {
   padding: 80px 40px 40px;
   background-color: #111827;
   color: white;
-  margin-left: 18%; /* space for sidebar */
+  margin-left: 18%; 
+  margin-top: 2%;
 }
 
-/* Category Section */
 .category-section {
   margin-bottom: 50px;
   border: 1px solid rgba(128, 128, 128, 0.2);
@@ -21,7 +21,6 @@
   color: #ff9800;
 }
 
-/* Horizontal Scroll Carousel */
 .games-carousel {
   display: flex;
   gap: 20px;
@@ -43,7 +42,6 @@
   background-color: transparent;
 }
 
-/* Game Card - Same as Home page */
 .game-card {
   position: relative;
   min-width: 220px;
@@ -74,7 +72,6 @@
   transform: scale(1.05);
 }
 
-/* Price Badge */
 .price-badge {
   position: absolute;
   top: 10px;
@@ -87,7 +84,6 @@
   font-size: 0.9rem;
 }
 
-/* Ribbon */
 .ribbon {
   position: absolute;
   top: 10px;
@@ -101,7 +97,6 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
-/* Game Info & Buttons */
 .game-info {
   padding: 12px;
 }
@@ -147,7 +142,6 @@
   background: linear-gradient(135deg, #b91c1c, #991b1b);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .categories-page {
     padding: 80px 20px 20px;
