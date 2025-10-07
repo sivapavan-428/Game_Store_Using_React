@@ -2,16 +2,19 @@ import React from "react";
 import Toptool from "./Toptool";
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
+import "./MainLayout.css"; 
 
 function MainLayout() {
   return (
-    <>
+    <div className="main-layout">
       <Toptool />
-      <Navbar />
-      <div className="page-content">
-        <Outlet />
+      <div className="main-body">
+        <Navbar />
+        <div className="content">
+          <Outlet />
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 

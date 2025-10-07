@@ -3,14 +3,17 @@ import { useState, useContext } from "react";
 import { FaGoogle, FaFacebookF } from "react-icons/fa";
 import "./Login.css";
 import { AuthContext } from "../utils/AuthContext";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -18,11 +21,33 @@ function Login() {
       return;
     }
 
+    try {
+      const response = await fetch("http://localhost:8081/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "Application/json" },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
-    login();
+      if (response.ok) {
+        const data = await response.json();
 
-    alert(`Logged in with email: ${email}`);
-    navigate("/");
+        localStorage.setItem("user", JSON.stringify(data));
+
+        alert(`Welcome back, ${data.firstName}!`);
+        login();
+        navigate("/");
+      } else {
+        const error = await response.text();
+        alert(`Login failed : ${error}`);
+      }
+    }
+    catch (error) {
+      console.error("Error during login:", error);
+      alert("Something went wrong. PLease try again later.");
+    }
   };
 
   return (
@@ -40,14 +65,21 @@ function Login() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input
-            className="passwords"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="password-wrapper">
+            <input
+              className="passwords"
+              id="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required />
+            <span
+              className="password-icon"
+              onClick={() => setShowPassword(!showPassword)}>
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
 
           <div className="login-options">
             <label>

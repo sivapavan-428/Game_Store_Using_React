@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Profile.css";
 import { CgProfile } from "react-icons/cg";
@@ -15,8 +15,19 @@ import {
 function Profile() {
   const navigate = useNavigate();
   const [showLogout, setShowLogout] = useState(false);
+  const [user, setUser] = useState({ firstName: "", lastName: "", email: "" });
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    } else {
+      navigate("/login");
+    }
+  },[navigate]);
 
   const handleLogout = () => {
+    localStorage.removeItem("user");
     setShowLogout(false);
     navigate("/login");
   };
@@ -34,8 +45,8 @@ function Profile() {
       <div className="profile-header">
         <CgProfile className="profile-pic" size={120} />
         <div className="details">
-          <p className="name">John Doe</p>
-          <p className="email">john@example.com</p>
+          <p className="name">{user.firstName} { user.lastName}</p>
+          <p className="email">{user.email}</p>
           <Link to="/profile/personal" className="edit-btn">Edit Profile</Link>
         </div>
       </div>
@@ -83,7 +94,6 @@ function Profile() {
         </div>
       </div>
 
-      {/* Logout modal */}
       {showLogout && (
         <div className="modal-overlay">
           <div className="modal-card">

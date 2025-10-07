@@ -1,11 +1,11 @@
 .library-page {
-  padding: 80px 40px 40px;
+  /* padding: 80px 40px 40px; */
   background-color: #111827;
   color: white;
   position: relative;
-  margin-left: 18%;
-  min-height: 100vh;
-  margin-top: 2%;
+  /* margin-left: 18%; */
+  /* min-height: 100vh; */
+  /* margin-top: 2%; */
 }
 
 .library-page h1 {

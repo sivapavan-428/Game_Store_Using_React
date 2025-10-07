@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./Signup.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -9,10 +10,12 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agree, setAgree] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -22,6 +25,7 @@ function SignUp() {
       alert("Please fill all fields.");
       return;
     }
+
 
     if (!emailRegex.test(email)) {
       alert("Please enter a valid email address.");
@@ -43,8 +47,30 @@ function SignUp() {
       return;
     }
 
-    alert(`Account created for ${firstName} ${lastName}`);
-    navigate("/login");
+    try {
+      const response = await fetch("http://localhost:8081/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password,
+        }),
+      });
+      if (response.ok) {
+        const message = await response.text();
+        alert(message);
+        navigate("/login");
+      } else {
+        const error = await response.text();
+        alert(`signup failed: ${error}`);
+      }
+    }
+    catch (error) {
+      console.error("Erroe during signup:", error);
+      alert("Something went wrong. Please try again later.")
+    }
   };
 
   return (
@@ -75,7 +101,7 @@ function SignUp() {
         </div>
 
         <input
-        className="email"
+          className="email"
           type="email"
           id="email"
           placeholder="Email"
@@ -84,24 +110,37 @@ function SignUp() {
           required
         />
 
-        <input
-          className="passwords"
-          id="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          id="cpassword"
-          className="passwords"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
+        <div className="password-wrapper">
+          <input
+            className="passwords"
+            id="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required/>
+          <span
+            className="password-icon"
+            onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
+
+        <div className="password-wrapper">
+          <input
+            type={showConfirmPassword ? "text" : "password"}
+            id="cpassword"
+            className="passwords"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required/>
+          <span
+            className="password-icon"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
 
         <label className="terms">
           <input
@@ -114,10 +153,10 @@ function SignUp() {
 
         <button type="submit">Create Account</button>
       </form>
-      
+
       <p className="or-text">or register with</p>
       <div className="accounts">
-        <button style={{background:"#adacab"}} className="google">
+        <button style={{ background: "#adacab" }} className="google">
           <a href="https://accounts.google.com/" target="_blank" rel="noopener noreferrer">Google</a>
         </button>
         <button className="apple">

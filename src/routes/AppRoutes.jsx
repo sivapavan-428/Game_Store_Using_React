@@ -26,10 +26,8 @@ function AppRoutes() {
         <Route path="/categories" element={<Categories />} />
         <Route path="/library" element={<Library />} />
         <Route path="/cart" element={<Cart />} />
-
       </Route>
 
-    
       <Route element={<ProfileLayout />}>
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/personal" element={<PersonalInfo />} />
@@ -38,7 +36,6 @@ function AppRoutes() {
         <Route path="/profile/settings" element={<Settings />} />
         <Route path="/profile/security" element={<Security />} />
       </Route>
-
    
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<Login />} />

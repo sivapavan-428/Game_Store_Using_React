@@ -1,159 +1,87 @@
-
 .home-page {
-  padding: 80px 40px 40px; 
-  background-color: #111827;
-  color: white;
-  margin-left: 18%; 
-  margin-top: 2%;
+  padding: 30px 20px;
+  background-color: #101925;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.game-section {
-  margin-bottom: 50px;
-  border: 1px solid rgba(128, 128, 128, 0.2);
-  box-shadow: 4px 8px 10px rgb(37, 37, 66);
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #171e2e;
-}
-
-.game-section h2 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  color: #ff9800;
-}
-
-.games-carousel {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 4% 2% 10px 2%;
-}
-
-.games-carousel::-webkit-scrollbar {
-  height: 6px;
-}
-
-.games-carousel::-webkit-scrollbar-thumb {
-  background-color: #ff9800;
-  border-radius: 3px;
-}
-
-.games-carousel::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-.game-card {
-  position: relative;
-  min-width: 220px;
-  border-radius: 16px;
-  overflow: hidden;
-  flex-shrink: 0;
-  cursor: pointer;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+.no-games {
   text-align: center;
-  height: auto;
-  
+  margin-top: 100px;
+  font-size: 1.8rem;
+  color: #aaa;
+}
+.sliding{
+  border: 1px solid green;
+
 }
 
-.game-card:hover {
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 20px 30px rgba(255, 152, 0, 0.6);
+
+
+.game-section,
+.trending-section {
+  margin-bottom: 50px;
+  border: 1px solid rgb(71, 71, 71);
+  border-radius: 20px;
+  background-color: rgba(17, 26, 51,0.3);
+  box-shadow: 3px 6px 12px rgb(61, 61, 61);
 }
 
-.game-card img {
-  width: 100%;
-  display: block;
-  border-radius: 16px 16px 0 0;
-  transition: transform 0.4s ease;
-}
-
-.game-card:hover img {
-  transform: scale(1.05);
-}
-
-.price-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #ff9800;
-  color: #111827;
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 0.9rem;
-}
-
-.ribbon {
-  position: absolute;
-  top: 10px;
-  left: -30px;
-  background: #10b981;
-  color: white;
-  padding: 5px 50px;
-  transform: rotate(-45deg);
-  font-weight: bold;
-  font-size: 0.75rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.game-info {
-  padding: 12px;
-}
-
-.game-info h3 {
-  font-size: 1.1rem;
-  margin-bottom: 6px;
+.game-section h2,
+.trending-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  padding-left: 12px;
   color: #fff;
+ 
 }
 
-.game-info p {
-  font-size: 1rem;
-  margin-bottom: 10px;
-  color: #ff9800;
-  font-weight: bold;
+.slick-slider {
+  padding: 10px 0;
 }
 
-.add-btn, .remove-btn {
-  width: 100%;
-  padding: 8px 0;
-  border-radius: 8px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.slick-slide {
+  display: flex !important;
+  justify-content: center;
+  outline: none;
 }
 
-.add-btn {
-  background: linear-gradient(135deg, #2563eb, #1e40af);
-  color: #fff;
+.trending-section .game-card.large {
+  width: 360px;
+  height: 480px;
 }
 
-.add-btn:hover {
-  background: linear-gradient(135deg, #1e40af, #1e3a8a);
+.game-section .game-card {
+  width: 240px;
+  height: 320px;
 }
 
-.remove-btn {
-  background: linear-gradient(135deg, #ef4444, #b91c1c);
-  color: #fff;
-}
-
-.remove-btn:hover {
-  background: linear-gradient(135deg, #b91c1c, #991b1b);
+@media (max-width: 1200px) {
+  .trending-section .game-card.large {
+    width: 300px;
+    height: 420px;
+  }
+  .game-section .game-card {
+    width: 200px;
+    height: 280px;
+  }
 }
 
 @media (max-width: 768px) {
-  .home-page {
-    padding: 80px 20px 20px;
-    margin-left: 0;
-    width: 75%;
+  .trending-section .game-card.large {
+    width: 260px;
+    height: 380px;
   }
-
-  .game-card {
-    min-width: 180px;
+  .game-section .game-card {
+    width: 180px;
+    height: 260px;
   }
+}
 
+@media (max-width: 480px) {
+  .trending-section .game-card.large,
+  .game-section .game-card {
+    width: 100%;
+    height: auto;
+  }
 }

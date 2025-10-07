@@ -1,69 +1,96 @@
-import React, { useContext } from "react";
+import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
 import "./Home.css";
-import { CartContext } from "../utils/CartContext";
+import GameCard from "./GameCard";
 
-
-const gameSections = [
-  {
-    title: "Trending Games",
-    games: [
-      { id: 1, name: "CyberQuest", img: "https://via.placeholder.com/200x250", price: 2999 },
-      { id: 2, name: "Dragon Slayer", img: "https://via.placeholder.com/200x250", price: 3999 },
-      { id: 3, name: "Pixel Racer", img: "https://via.placeholder.com/200x250", price: 1999 },
-      { id: 4, name: "Sky Fortress", img: "https://via.placeholder.com/200x250", price: 2999 },
-      { id: 5, name: "Galaxy Raiders", img: "https://via.placeholder.com/200x250", price: 3499 },
-      { id: 6, name: "Mystic Quest", img: "https://via.placeholder.com/200x250", price: 2599 },
-    ],
-  },
-  {
-    title: "New Releases",
-    games: [
-      { id: 7, name: "Shadow Strike", img: "https://via.placeholder.com/200x250", price: 3199 },
-      { id: 8, name: "Neon Drift", img: "https://via.placeholder.com/200x250", price: 2299 },
-      { id: 9, name: "Monster Hunt", img: "https://via.placeholder.com/200x250", price: 3899 },
-      { id: 10, name: "Sky Riders", img: "https://via.placeholder.com/200x250", price: 2699 },
-      { id: 11, name: "Epic Battle", img: "https://via.placeholder.com/200x250", price: 3999 },
-    ],
-  },
-  {
-    title: "Top Rated",
-    games: [
-      { id: 12, name: "Star Voyager", img: "https://via.placeholder.com/200x250", price: 3599 },
-      { id: 13, name: "Dungeon Master", img: "https://via.placeholder.com/200x250", price: 2999 },
-      { id: 14, name: "Speed Legends", img: "https://via.placeholder.com/200x250", price: 2499 },
-      { id: 15, name: "Battle Arena", img: "https://via.placeholder.com/200x250", price: 4199 },
-    ],
-  },
-];
+// Backend keys → frontend section names
+const sectionTitles = {
+  TRENDING: "🔥 Trending Games",
+  NEW_RELEASES: "🆕 New Releases",
+  TOP_RATED: "⭐ Top Rated",
+  FREE: "🎮 Free Games",
+};
 
 function Home() {
-  const { cartItems, addToCart, removeFromCart } = useContext(CartContext);
+  const [games, setGames] = useState([]);
 
-  const isInCart = (gameId) => cartItems.some((item) => item.id === gameId);
+  useEffect(() => {
+    fetch("http://localhost:8081/api/games/all")
+      .then((res) => res.json())
+      .then((data) => setGames(data))
+      .catch((err) => console.error("Error fetching games:", err));
+  }, []);
+
+  if (!games || games.length === 0) {
+    return (
+      <div className="no-games">
+        <h2>🚫 No games available at the moment. Please check back later!</h2>
+      </div>
+    );
+  }
+
+  // Group games by sectionKey
+  const groupedGames = games.reduce((acc, game) => {
+    if (!acc[game.sectionKey]) acc[game.sectionKey] = [];
+    acc[game.sectionKey].push(game);
+    return acc;
+  }, {});
+
+  // Separate trending
+  const trendingGames = groupedGames["TRENDING"] || [];
+  const otherSections = Object.entries(groupedGames).filter(
+    ([key]) => key !== "TRENDING"
+  );
+
+  const trendingSlider = {
+    dots: true,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3500,
+    arrows: false,
+  };
+
+  const sectionSlider = {
+    dots: false,
+    infinite: true,
+    speed: 600,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    responsive: [
+      { breakpoint: 1200, settings: { slidesToShow: 3 } },
+      { breakpoint: 900, settings: { slidesToShow: 2 } },
+      { breakpoint: 600, settings: { slidesToShow: 1 } },
+    ],
+  };
 
   return (
     <div className="home-page">
-      {gameSections.map((section, index) => (
-        <div className="game-section" key={index}>
-          <h2>{section.title}</h2>
-          <div className="games-carousel">
-            {section.games.map((game) => (
-              <div className="game-card" key={game.id}>
-                {game.isNew && <div className="ribbon">NEW</div>}
-                <img src={game.img} alt={game.name} />
-                <div className="price-badge">{game.price}.Rs</div>
-                <div className="game-info">
-                  <h3>{game.name}</h3>
-                  {isInCart(game.id) ? (
-                    <button className="remove-btn" onClick={() => removeFromCart(game.id)}>Remove</button>
-                  ) : (
-                    <button className="add-btn" onClick={() => addToCart(game)}>Add to Cart</button>
-                  )}
-                </div>
-              </div>
-
+      {/* TRENDING */}
+      {trendingGames.length > 0 && (
+        <div className="trending-section">
+          <h2>{sectionTitles["TRENDING"]}</h2>
+          <Slider {...trendingSlider}>
+            {trendingGames.map((game) => (
+              <GameCard key={game.id} game={game} large={true} />
             ))}
-          </div>
+          </Slider>
+        </div>
+      )}
+
+      {/* OTHER SECTIONS */}
+      {otherSections.map(([sectionKey, sectionGames]) => (
+        <div className="game-section" key={sectionKey}>
+          <h2>{sectionTitles[sectionKey] || sectionKey}</h2>
+          <Slider {...sectionSlider}>
+            {sectionGames.map((game) => (
+              <GameCard key={game.id} game={game} />
+            ))}
+          </Slider>
         </div>
       ))}
     </div>
