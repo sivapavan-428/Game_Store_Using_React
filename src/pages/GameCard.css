@@ -5,8 +5,8 @@
   margin: 10px;
   text-align: center;
   color: white;
-  width: 240px;
-  height: 320px;
+  width: 1200px;
+  height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -14,14 +14,10 @@
   transition: transform 0.3s;
 }
 
-.game-card:hover {
-  transform: scale(1.05);
-}
-
 .game-card.large {
   width: 360px;
-  height: 440px;
-  border: 2px solid gold;
+  height: 400px;
+
 }
 
 .game-card .game-img {
@@ -46,6 +42,7 @@
 
 .buy-btn {
   background: #ff9900;
+  width: 20%;
   border: none;
   border-radius: 5px;
   padding: 6px 12px;

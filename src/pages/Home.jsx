@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "./Home.css";
-import GameCard from "./GameCard";
+import TrendingGameCard from "./TrendingGamecard.jsx"
+import NormalGameCard from "./NormalGameCard.jsx";
 
-// Backend keys → frontend section names
 const sectionTitles = {
-  TRENDING: "🔥 Trending Games",
   NEW_RELEASES: "🆕 New Releases",
   TOP_RATED: "⭐ Top Rated",
   FREE: "🎮 Free Games",
@@ -21,42 +20,28 @@ function Home() {
       .catch((err) => console.error("Error fetching games:", err));
   }, []);
 
-  if (!games || games.length === 0) {
-    return (
-      <div className="no-games">
-        <h2>🚫 No games available at the moment. Please check back later!</h2>
-      </div>
-    );
-  }
-
-  // Group games by sectionKey
-  const groupedGames = games.reduce((acc, game) => {
-    if (!acc[game.sectionKey]) acc[game.sectionKey] = [];
-    acc[game.sectionKey].push(game);
-    return acc;
-  }, {});
-
-  // Separate trending
-  const trendingGames = groupedGames["TRENDING"] || [];
-  const otherSections = Object.entries(groupedGames).filter(
-    ([key]) => key !== "TRENDING"
-  );
+  const trendingGames = games.filter((g) => g.sectionKey === "TRENDING");
+  const groupedOthers = games
+    .filter((g) => g.sectionKey !== "TRENDING")
+    .reduce((acc, g) => {
+      acc[g.sectionKey] = acc[g.sectionKey] || [];
+      acc[g.sectionKey].push(g);
+      return acc;
+    }, {});
 
   const trendingSlider = {
     dots: true,
     infinite: true,
-    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3500,
+    autoplaySpeed: 3000,
     arrows: false,
   };
 
   const sectionSlider = {
     dots: false,
     infinite: true,
-    speed: 600,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
@@ -70,29 +55,31 @@ function Home() {
 
   return (
     <div className="home-page">
-      {/* TRENDING */}
       {trendingGames.length > 0 && (
         <div className="trending-section">
-          <h2>{sectionTitles["TRENDING"]}</h2>
+          <h2>🔥 Trending Games</h2>
           <Slider {...trendingSlider}>
-            {trendingGames.map((game) => (
-              <GameCard key={game.id} game={game} large={true} />
+            {trendingGames.map((g) => (
+              <TrendingGameCard key={g.id} game={g} />
             ))}
           </Slider>
         </div>
       )}
 
-      {/* OTHER SECTIONS */}
-      {otherSections.map(([sectionKey, sectionGames]) => (
-        <div className="game-section" key={sectionKey}>
-          <h2>{sectionTitles[sectionKey] || sectionKey}</h2>
-          <Slider {...sectionSlider}>
-            {sectionGames.map((game) => (
-              <GameCard key={game.id} game={game} />
-            ))}
-          </Slider>
-        </div>
-      ))}
+      {["NEW_RELEASES", "TOP_RATED", "FREE"].map((sectionKey) =>
+        groupedOthers[sectionKey] ? (
+          <div key={sectionKey} className="game-section">
+            <h2>{sectionTitles[sectionKey]}</h2>
+            <div className="slider-wrapper">
+              <Slider {...sectionSlider}>
+                {groupedOthers[sectionKey].map((g) => (
+                  <NormalGameCard key={g.id} game={g} />
+                ))}
+              </Slider>
+            </div>
+          </div>
+        ) : null
+      )}
     </div>
   );
 }

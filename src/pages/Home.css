@@ -1,9 +1,10 @@
 .home-page {
   padding: 30px 20px;
-  background-color: #101925;
+  /* background-color: #777a7e; */
   color: #fff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 
 .no-games {
   text-align: center;
@@ -11,39 +12,58 @@
   font-size: 1.8rem;
   color: #aaa;
 }
-.sliding{
-  border: 1px solid green;
 
-}
-
-
-
-.game-section,
 .trending-section {
-  margin-bottom: 50px;
-  border: 1px solid rgb(71, 71, 71);
+  margin-bottom: 60px;
+  text-align: center;
   border-radius: 20px;
-  background-color: rgba(17, 26, 51,0.3);
-  box-shadow: 3px 6px 12px rgb(61, 61, 61);
+  padding: 20px;
 }
 
-.game-section h2,
-.trending-section h2 {
+.trending-section .section-title {
   font-size: 2rem;
-  margin-bottom: 20px;
-  padding-left: 12px;
-  color: #fff;
- 
+  margin-bottom: 25px;
 }
 
-.slick-slider {
-  padding: 10px 0;
-}
-
-.slick-slide {
+.trending-section .slick-slide {
   display: flex !important;
   justify-content: center;
-  outline: none;
+  align-items: center;
+}
+
+.game-section {
+  margin-bottom: 50px;
+}
+
+.game-section .section-title {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+}
+
+.game-scroll-container {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+}
+
+.game-scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.game-scroll-container::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 10px;
+}
+
+.game-scroll-container::-webkit-scrollbar-track {
+  background-color: #222;
 }
 
 .trending-section .game-card.large {
@@ -54,6 +74,7 @@
 .game-section .game-card {
   width: 240px;
   height: 320px;
+  flex: 0 0 auto;
 }
 
 @media (max-width: 1200px) {
@@ -61,6 +82,7 @@
     width: 300px;
     height: 420px;
   }
+
   .game-section .game-card {
     width: 200px;
     height: 280px;
@@ -72,6 +94,7 @@
     width: 260px;
     height: 380px;
   }
+
   .game-section .game-card {
     width: 180px;
     height: 260px;
@@ -79,9 +102,28 @@
 }
 
 @media (max-width: 480px) {
+
   .trending-section .game-card.large,
   .game-section .game-card {
     width: 100%;
     height: auto;
   }
+}
+
+
+.game-section .section-title {
+  display: flex;
+
+}
+
+.game-section h2 {
+  text-align: start;
+  margin-bottom: 10px;
+  color: #ffffff;
+  font-size: 2rem;
+
+}
+
+.trending-section h2 {
+  padding-bottom: 2rem;
 }

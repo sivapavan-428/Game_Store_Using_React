@@ -15,7 +15,7 @@ import Orders from "../components/Orders";
 import Settings from "../components/Settings";
 import Security from "../components/Security";
 import Checkout from "../pages/Checkout";
-
+import Bootsdta from "../pages/Bootsdta";
 function AppRoutes() {
   return (
     <Routes>
@@ -35,6 +35,10 @@ function AppRoutes() {
         <Route path="/profile/orders" element={<Orders />} />
         <Route path="/profile/settings" element={<Settings />} />
         <Route path="/profile/security" element={<Security />} />
+        <Route path="/bootsdta" element={<Bootsdta />} />
+
+
+        
       </Route>
    
       <Route element={<AuthLayout />}>
