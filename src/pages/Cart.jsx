@@ -7,7 +7,14 @@ function Cart() {
   const { cartItems, removeFromCart } = useContext(CartContext);
   const navigate = useNavigate();
 
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price, 0);
+  // Calculate subtotal using discounted prices
+  const subtotal = cartItems.reduce((sum, item) => {
+    const discountedPrice = item.discount
+      ? Math.round(item.price * (1 - item.discount / 100))
+      : item.price;
+    return sum + discountedPrice;
+  }, 0);
+
   const gst = subtotal * 0.18;
   const platformCharges = cartItems.length > 0 ? 8 : 0;
   const deliveryCharges = cartItems.length > 0 ? 31 : 0;
@@ -19,28 +26,40 @@ function Cart() {
         <p className="empty-cart">🛒 Your cart is empty</p>
       ) : (
         <div className="cart-content">
-
           <div className="cart-items-border">
             <div className="cart-items">
-              {cartItems.map((item) => (
-                <div className="cart-card" key={item.id}>
-                  <img src={item.img} alt={item.name} />
-                  <div className="cart-info">
-                    <div className="cart-details">
-                      <h3>{item.name}</h3>
-                      <p>Awesome game for your library</p>
-                    </div>
-                    <div className="cart-actions">
-                      <span className="price">{item.price}.Rs</span>
-                      <button
-                        className="remove-btn"
-                        onClick={() => removeFromCart(item.id)}>
-                        Remove
-                      </button>
+              {cartItems.map((item) => {
+                const discountedPrice = item.discount
+                  ? Math.round(item.price * (1 - item.discount / 100))
+                  : item.price;
+                return (
+                  <div className="cart-card" key={item.id}>
+                    <img src={item.imgBase64 || "/default-game.png"} alt={item.name} />
+                    <div className="cart-info">
+                      <div className="cart-details">
+                        <h3>{item.name}</h3>
+                        <p>Awesome game for your library</p>
+                      </div>
+                      <div className="cart-actions">
+                        {item.discount ? (
+                          <div className="price-info">
+                            <span className="original-price">{item.price}.Rs</span>
+                            <span className="final-price">{discountedPrice}.Rs</span>
+                          </div>
+                        ) : (
+                          <span className="price">{item.price}.Rs</span>
+                        )}
+                        <button
+                          className="remove-btn"
+                          onClick={() => removeFromCart(item.id)}
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -56,7 +75,8 @@ function Cart() {
             <h2 className="total">Total: {total.toFixed()}.Rs</h2>
             <button
               className="cart-buy-btn"
-              onClick={() => navigate("/checkout")}>
+              onClick={() => navigate("/checkout")}
+            >
               Proceed to Checkout
             </button>
           </div>

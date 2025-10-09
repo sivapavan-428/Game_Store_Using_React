@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Slider from "react-slick";
 import "./Home.css";
 import TrendingGameCard from "./TrendingGamecard.jsx"
 import NormalGameCard from "./NormalGameCard.jsx";
+import { CartContext } from "../utils/CartContext";
 
 const sectionTitles = {
   NEW_RELEASES: "🆕 New Releases",
@@ -12,6 +13,7 @@ const sectionTitles = {
 
 function Home() {
   const [games, setGames] = useState([]);
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     fetch("http://localhost:8081/api/games/all")
@@ -61,7 +63,7 @@ function Home() {
           <div className="trending-wrapper">
             <Slider {...trendingSlider}>
             {trendingGames.map((g) => (
-              <TrendingGameCard key={g.id} game={g} />
+              <TrendingGameCard key={g.id} game={g} onAddToCart={addToCart}/>
             ))}
           </Slider>
 
@@ -78,7 +80,7 @@ function Home() {
               <h2>{sectionTitles[sectionKey]}</h2>
               <div className="manual-scroll-container">
                 {groupedOthers[sectionKey].map((g) => (
-                  <NormalGameCard key={g.id} game={g} />
+                  <NormalGameCard key={g.id} game={g} onAddToCart={addToCart}/>
                 ))}
               </div>
             </div>
