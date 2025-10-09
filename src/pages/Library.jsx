@@ -3,7 +3,7 @@ import { CartContext } from "../utils/CartContext";
 import "./Library.css";
 
 function Library() {
-  const { purchasedGames } = useContext(CartContext); // We'll track purchased games
+  const { purchasedGames } = useContext(CartContext); 
 
   return (
     <div className="library-page">

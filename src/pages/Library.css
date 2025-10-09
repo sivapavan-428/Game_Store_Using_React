@@ -1,18 +1,21 @@
 .library-page {
-  /* padding: 80px 40px 40px; */
+  
   background-color: #111827;
   color: white;
   position: relative;
-  /* margin-left: 18%; */
-  /* min-height: 100vh; */
-  /* margin-top: 2%; */
+  width: 100%;
+  padding: 50px 10%;
 }
 
 .library-page h1 {
   font-size: 2rem;
-  color: #ff9800;
+  color: #ffffff;
   margin-bottom: 30px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
+
 
 .library-list {
   display: flex;
@@ -67,7 +70,7 @@
 .library-page p {
   font-size: 1.2rem;
   color: #9ca3af;
-  align-items: start;
+  align-items: center;
 }
 
 @media (max-width: 1024px) {

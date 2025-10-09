@@ -9,10 +9,10 @@ function MainLayout() {
     <div className="main-layout">
       <Toptool />
       <div className="main-body">
-        {/* <Navbar /> */}
-        <div className="content">
+        
+        {/* <div className="content"> */}
           <Outlet />
-        </div>
+        {/* </div> */}
       </div>
     </div>
   );

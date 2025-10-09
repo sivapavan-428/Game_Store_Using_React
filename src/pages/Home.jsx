@@ -39,46 +39,50 @@ function Home() {
     arrows: false,
   };
 
-  const sectionSlider = {
-    dots: false,
-    infinite: true,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    responsive: [
-      { breakpoint: 1200, settings: { slidesToShow: 3 } },
-      { breakpoint: 900, settings: { slidesToShow: 2 } },
-      { breakpoint: 600, settings: { slidesToShow: 1 } },
-    ],
-  };
+  // const sectionSlider = {
+  //   dots: false,
+  //   infinite: true,
+  //   slidesToShow: 4,
+  //   slidesToScroll: 1,
+  //   autoplay: true,
+  //   autoplaySpeed: 4000,
+  //   responsive: [
+  //     { breakpoint: 1200, settings: { slidesToShow: 3 } },
+  //     { breakpoint: 900, settings: { slidesToShow: 2 } },
+  //     { breakpoint: 600, settings: { slidesToShow: 1 } },
+  //   ],
+  // };
 
   return (
     <div className="home-page">
       {trendingGames.length > 0 && (
         <div className="trending-section">
           <h2>🔥 Trending Games</h2>
-          <Slider {...trendingSlider}>
+          <div className="trending-wrapper">
+            <Slider {...trendingSlider}>
             {trendingGames.map((g) => (
               <TrendingGameCard key={g.id} game={g} />
             ))}
           </Slider>
+
+          </div>
+          
         </div>
       )}
 
-      {["NEW_RELEASES", "TOP_RATED", "FREE"].map((sectionKey) =>
-        groupedOthers[sectionKey] ? (
-          <div key={sectionKey} className="game-section">
-            <h2>{sectionTitles[sectionKey]}</h2>
-            <div className="slider-wrapper">
-              <Slider {...sectionSlider}>
+      
+      {["NEW_RELEASES", "TOP_RATED", "FREE"].map(
+        (sectionKey) =>
+          groupedOthers[sectionKey] && (
+            <div key={sectionKey} className="game-section">
+              <h2>{sectionTitles[sectionKey]}</h2>
+              <div className="manual-scroll-container">
                 {groupedOthers[sectionKey].map((g) => (
                   <NormalGameCard key={g.id} game={g} />
                 ))}
-              </Slider>
+              </div>
             </div>
-          </div>
-        ) : null
+          )
       )}
     </div>
   );

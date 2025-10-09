@@ -1,9 +1,10 @@
+
 .toptool-desktop {
   display: flex;
   align-items: center;
-  padding: 0.5rem 1rem;
+  justify-content: space-between;
+  padding: 0.5rem 2rem;
   color: white;
-  justify-content: space-evenly;
   background: linear-gradient(135deg, #575b66, #4a4b53, #5a5a5a);
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -11,78 +12,69 @@
   position: sticky;
   top: 0;
   z-index: 1000;
+  flex-wrap: wrap;
 }
-
 
 .logo-name {
   display: flex;
   align-items: center;
   font-weight: bold;
-  font-size: 1.7rem;
+  font-size: 1.8rem;
+
 }
 
 .logo-name .logo {
   margin-right: 0.5rem;
+  margin-top: 0.1rem;
 }
 
 .nav-links ul {
   display: flex;
   list-style: none;
   margin-left: 2rem;
-  flex-grow: 1;
-}
-
-.nav-links li {
-  margin-right: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .nav-link {
   color: rgb(182, 180, 180);
-  font-size: 1.3rem;
-  padding-top: 10px;
+  font-size: 1.2rem;
   font-weight: 600;
-
+  text-decoration: none;
+  padding: 0.2rem 0.5rem;
+  margin-top: 1rem;
 }
 
 .nav-link.active {
-  text-decoration: none;
-
   color: white;
-
 }
 
 .search-container {
   position: relative;
-  margin-right: 1rem;
-  left: 200px;
-  background-color: hsl(184, 15%, 80%);
-  border-radius: 20px;
+  margin: 0 1rem;
+  flex: 1;
+  max-width: 300px;
 }
 
-
-
 .search-container input {
+  width: 100%;
   padding-left: 2rem;
   height: 35px;
   border-radius: 15px;
   border: none;
-  background-color: hsl(184, 15%, 80%);
-
 }
-
-
 
 .search-container input:focus {
   outline: none;
-  color: black;
 }
 
-.search-container .search-icon {
+.search-icon {
   position: absolute;
   left: 8px;
   top: 50%;
   transform: translateY(-50%);
   color: #888;
+  display: none;
 }
 
 .cart {
@@ -90,16 +82,15 @@
   margin-right: 1rem;
   color: white;
   text-decoration: none;
-  left: 80px;
-  border: 1px solid rgb(255, 255, 255);
-  padding: 8px;
+  padding: 6px 10px;
   border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .cart-count {
   position: absolute;
   top: -5px;
-  right: -10px;
+  right: -8px;
   background: red;
   color: white;
   border-radius: 50%;
@@ -108,19 +99,24 @@
 }
 
 .auth-btn {
-  color: white;
+  color: rgb(0, 0, 0);
   text-decoration: none;
   border: 1px solid white;
-  padding: 4px 10px;
-  border-radius: 4px;
-  position: relative;
-  left: 100px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: 0.2s ease-in-out;
+  background-color: #008cff;
+}
+
+.auth-btn:hover {
+  background-color: #35a4ff;
 }
 
 
 
 .toptool-mobile {
-  display: flex;
+  display: none;
   justify-content: space-between;
   align-items: center;
   background-color: #1a1a1a;
@@ -131,10 +127,10 @@
 .right-actions {
   display: flex;
   align-items: center;
+  gap: 1rem;
 }
 
 .hamburger {
-  margin-left: 0.5rem;
   cursor: pointer;
 }
 
@@ -144,11 +140,13 @@
   left: -260px;
   width: 250px;
   height: 100%;
-  background-color: #333;
+  background-color: #222;
   color: white;
-  transition: 0.3s;
+  transition: left 0.3s ease;
   padding: 1rem;
-  z-index: 1000;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
 }
 
 .mobile-drawer.open {
@@ -171,21 +169,24 @@
 }
 
 .mobile-drawer .nav-links {
+  display: flex;
   flex-direction: column;
   margin-left: 0;
-}
-
-.mobile-drawer .nav-links li {
-  margin-bottom: 0.8rem;
-}
-
-.mobile-drawer .search-container {
-  margin-bottom: 1rem;
+  gap: 1rem;
 }
 
 .drawer-btn {
   display: block;
   text-align: center;
+  margin-top: 1rem;
+  padding: 6px 10px;
+  border-radius: 5px;
+  background-color: #008cff;
+  color: white;
+}
+
+.drawer-btn:hover {
+  background-color: #40a9ff;
 }
 
 .drawer-overlay {
@@ -195,34 +196,36 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 900;
+  z-index: 1000;
 }
 
 @media (max-width: 768px) {
   .toptool-desktop {
     display: none;
   }
+
+  .toptool-mobile {
+    display: flex;
+  }
+
+  .search-container input {
+    width: 100%;
+  
+  }
+
+  .logo-name {
+    font-size: 1.3rem;
+  }
+
+  .cart {
+    padding: 4px 8px;
+  }
 }
 
 @media (min-width: 769px) {
-
   .toptool-mobile,
   .mobile-drawer,
   .drawer-overlay {
     display: none;
   }
-}
-
-.loginn-btn {
-
-  background-color: rgb(0, 190, 190);
-  color: black;
-  font-weight: 500;
-  border-radius: 10px;
-  align-items: center;
-  transition: 0.2s ease-in;
-}
-
-.loginn-btn:hover {
-  background-color: aqua;
 }

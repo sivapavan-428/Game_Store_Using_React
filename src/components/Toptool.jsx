@@ -70,10 +70,10 @@ function Toptool() {
 
         <div className="right-actions">
           <Link to="/cart" className="cart">
-            <FaCartShopping size={25} />
+            <FaCartShopping size={20} />
             {cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
           </Link>
-          <GiHamburgerMenu size={25} onClick={toggleMenu} className="hamburger" />
+          <GiHamburgerMenu size={20} onClick={toggleMenu} className="hamburger" />
         </div>
       </nav>
 

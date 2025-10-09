@@ -28,12 +28,13 @@ import "./TrendingGameCard.css";
 
 function TrendingGameCard({ game }) {
   return (
-    <div className="game-card trending-card">
-      <img src={game.imageName} alt={game.name} className="game-image" />
-      <div className="game-info">
+    <div className="trending-card">
+      <img src={game.imgBase64 || "/default-game.png"} alt={game.name} className="game-image" />
+
+      <div className="game-info-overlay">
         <h3>{game.name}</h3>
         <p className="price">₹{game.price}</p>
-        {game.discount && <p className="discount">-{game.discount}%</p>}
+        {/* {game.discount && <p className="discount">-{game.discount}.Rs</p>} */}
         <button className="buy-btn trending-btn">Buy Now</button>
       </div>
     </div>

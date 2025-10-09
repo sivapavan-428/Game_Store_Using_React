@@ -55,7 +55,7 @@ function Cart() {
             <hr />
             <h2 className="total">Total: {total.toFixed()}.Rs</h2>
             <button
-              className="buy-btn"
+              className="cart-buy-btn"
               onClick={() => navigate("/checkout")}>
               Proceed to Checkout
             </button>

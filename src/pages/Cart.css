@@ -146,7 +146,7 @@
   margin-bottom: 20px;
 }
 
-.buy-btn {
+.cart-buy-btn {
   width: 100%;
   padding: 14px;
   background: linear-gradient(135deg, #4caf50, #2e7d32);
@@ -159,7 +159,7 @@
   font-size: 1rem;
 }
 
-.buy-btn:hover {
+.cart-buy-btn:hover {
   background: linear-gradient(135deg, #66bb6a, #388e3c);
 }
 
