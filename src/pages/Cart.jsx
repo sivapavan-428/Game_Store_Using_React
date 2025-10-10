@@ -1,13 +1,17 @@
-import React, { useContext } from "react";
+
+import React, { useContext, useState } from "react";
 import "./Cart.css";
 import { CartContext } from "../utils/CartContext";
+import { AuthContext } from "../utils/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const { cartItems, removeFromCart } = useContext(CartContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // Calculate subtotal using discounted prices
+  const [showPopup, setShowPopup] = useState(false);
+
   const subtotal = cartItems.reduce((sum, item) => {
     const discountedPrice = item.discount
       ? Math.round(item.price * (1 - item.discount / 100))
@@ -20,65 +24,103 @@ function Cart() {
   const deliveryCharges = cartItems.length > 0 ? 31 : 0;
   const total = subtotal + gst + platformCharges + deliveryCharges;
 
+  const handleCheckout = () => {
+    if (!user) {
+      setShowPopup(true);
+      return;
+    }
+    navigate("/checkout");
+  };
+
   return (
     <div className="cart-page">
       {cartItems.length === 0 ? (
         <p className="empty-cart">🛒 Your cart is empty</p>
       ) : (
-        <div className="cart-content">
-          <div className="cart-items-border">
-            <div className="cart-items">
-              {cartItems.map((item) => {
-                const discountedPrice = item.discount
-                  ? Math.round(item.price * (1 - item.discount / 100))
-                  : item.price;
-                return (
-                  <div className="cart-card" key={item.id}>
-                    <img src={item.imgBase64 || "/default-game.png"} alt={item.name} />
-                    <div className="cart-info">
-                      <div className="cart-details">
-                        <h3>{item.name}</h3>
-                        <p>Awesome game for your library</p>
-                      </div>
-                      <div className="cart-actions">
-                        {item.discount ? (
-                          <div className="price-info">
-                            <span className="original-price">{item.price}.Rs</span>
-                            <span className="final-price">{discountedPrice}.Rs</span>
-                          </div>
-                        ) : (
-                          <span className="price">{item.price}.Rs</span>
-                        )}
-                        <button
-                          className="remove-btn"
-                          onClick={() => removeFromCart(item.id)}
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    </div>
+        <div className="cart-container">
+          <div className="cart-items">
+            {cartItems.map((item) => {
+              const discountedPrice = item.discount
+                ? Math.round(item.price * (1 - item.discount / 100))
+                : item.price;
+              return (
+                <div className="cart-item" key={item.id}>
+                  <img src={item.imgBase64 || "/default-game.png"} alt={item.name} />
+                  <div className="item-info">
+                    <h3>{item.name}</h3>
+                    <p>Awesome game for your collection</p>
                   </div>
-                );
-              })}
-            </div>
+                  <div className="item-price">
+                    {item.discount ? (
+                      <div className="price-block">
+                        <span className="original">{item.price}₹</span>
+                        <span className="discounted">{discountedPrice}₹</span>
+                      </div>
+                    ) : (
+                      <span className="discounted">{item.price}₹</span>
+                    )}
+                    <button
+                      className="remove-btn"
+                      onClick={() => removeFromCart(item.id)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
           <div className="cart-summary">
-            <h3>Price Summary</h3>
-            <div className="summary-details">
-              <p>Subtotal <span>{subtotal.toFixed()}.Rs</span></p>
-              <p>GST (18%) <span>{gst.toFixed()}.Rs</span></p>
-              <p>Platform Charges <span>{platformCharges}.Rs</span></p>
-              <p>Delivery Charges <span>{deliveryCharges}.Rs</span></p>
+            <h2>Order Summary</h2>
+            <div className="summary-row">
+              <span>Subtotal</span>
+              <span>{subtotal.toFixed()}₹</span>
+            </div>
+            <div className="summary-row">
+              <span>GST (18%)</span>
+              <span>{gst.toFixed()}₹</span>
+            </div>
+            <div className="summary-row">
+              <span>Platform Charges</span>
+              <span>{platformCharges}₹</span>
+            </div>
+            <div className="summary-row">
+              <span>Delivery Charges</span>
+              <span>{deliveryCharges}₹</span>
             </div>
             <hr />
-            <h2 className="total">Total: {total.toFixed()}.Rs</h2>
-            <button
-              className="cart-buy-btn"
-              onClick={() => navigate("/checkout")}
-            >
+            <div className="summary-row total">
+              <strong>Total</strong>
+              <strong>{total.toFixed()}₹</strong>
+            </div>
+            <button className="checkout-btn" onClick={handleCheckout}>
               Proceed to Checkout
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Popup Modal */}
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <h3>Login Required</h3>
+            <p>Please log in first to purchase games.</p>
+            <div className="popup-buttons">
+              <button
+                className="login-btn"
+                onClick={() => navigate("/login")}
+              >
+                Go to Login
+              </button>
+              <button
+                className="cancel-btn"
+                onClick={() => setShowPopup(false)}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}

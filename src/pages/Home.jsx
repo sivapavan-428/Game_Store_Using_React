@@ -1,33 +1,41 @@
+
 import React, { useEffect, useState, useContext } from "react";
 import Slider from "react-slick";
-import "./Home.css";
 import TrendingGameCard from "./TrendingGamecard.jsx"
 import NormalGameCard from "./NormalGameCard.jsx";
 import { CartContext } from "../utils/CartContext";
+import "./Home.css";
 
 const sectionTitles = {
+  TRENDING: "🔥 Trending Games",
   NEW_RELEASES: "🆕 New Releases",
   TOP_RATED: "⭐ Top Rated",
+  FEATURED: "✨ Featured Games",
   FREE: "🎮 Free Games",
 };
+
+const allowedSections = Object.keys(sectionTitles);
 
 function Home() {
   const [games, setGames] = useState([]);
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    fetch("http://localhost:8081/api/games/all")
+    fetch("http://localhost:8081/api/games/getAll")
       .then((res) => res.json())
       .then((data) => setGames(data))
       .catch((err) => console.error("Error fetching games:", err));
   }, []);
 
   const trendingGames = games.filter((g) => g.sectionKey === "TRENDING");
-  const groupedOthers = games
-    .filter((g) => g.sectionKey !== "TRENDING")
-    .reduce((acc, g) => {
-      acc[g.sectionKey] = acc[g.sectionKey] || [];
-      acc[g.sectionKey].push(g);
+  const freeGames = games.filter((g) => g.sectionKey === "FREE");
+  const featuredGames = games.filter((g) => g.sectionKey === "FEATURED");
+
+  const otherSections = allowedSections
+    .filter((key) => !["TRENDING", "FREE", "FEATURED"].includes(key))
+    .reduce((acc, key) => {
+      const sectionGames = games.filter((g) => g.sectionKey === key);
+      if (sectionGames.length > 0) acc[key] = sectionGames;
       return acc;
     }, {});
 
@@ -41,50 +49,67 @@ function Home() {
     arrows: false,
   };
 
-  // const sectionSlider = {
-  //   dots: false,
-  //   infinite: true,
-  //   slidesToShow: 4,
-  //   slidesToScroll: 1,
-  //   autoplay: true,
-  //   autoplaySpeed: 4000,
-  //   responsive: [
-  //     { breakpoint: 1200, settings: { slidesToShow: 3 } },
-  //     { breakpoint: 900, settings: { slidesToShow: 2 } },
-  //     { breakpoint: 600, settings: { slidesToShow: 1 } },
-  //   ],
-  // };
-
   return (
     <div className="home-page">
+
       {trendingGames.length > 0 && (
         <div className="trending-section">
-          <h2>🔥 Trending Games</h2>
-          <div className="trending-wrapper">
-            <Slider {...trendingSlider}>
-            {trendingGames.map((g) => (
-              <TrendingGameCard key={g.id} game={g} onAddToCart={addToCart}/>
+          <h2>{sectionTitles.TRENDING}</h2>
+          <Slider {...trendingSlider}>
+            {trendingGames.map((game) => (
+              <TrendingGameCard
+                key={game.id}
+                game={game}
+                onAddToCart={addToCart}
+              />
             ))}
           </Slider>
-
-          </div>
-          
         </div>
       )}
 
-      
-      {["NEW_RELEASES", "TOP_RATED", "FREE"].map(
-        (sectionKey) =>
-          groupedOthers[sectionKey] && (
-            <div key={sectionKey} className="game-section">
-              <h2>{sectionTitles[sectionKey]}</h2>
-              <div className="manual-scroll-container">
-                {groupedOthers[sectionKey].map((g) => (
-                  <NormalGameCard key={g.id} game={g} onAddToCart={addToCart}/>
-                ))}
-              </div>
-            </div>
-          )
+      {featuredGames.length > 0 && (
+        <div className="game-section">
+          <h2>{sectionTitles.FEATURED}</h2>
+          <div className="manual-scroll-container">
+            {featuredGames.map((game) => (
+              <NormalGameCard
+                key={game.id}
+                game={game}
+                onAddToCart={addToCart}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {Object.entries(otherSections).map(([key, sectionGames]) => (
+        <div key={key} className="game-section">
+          <h2>{sectionTitles[key]}</h2>
+          <div className="manual-scroll-container">
+            {sectionGames.map((game) => (
+              <NormalGameCard
+                key={game.id}
+                game={game}
+                onAddToCart={addToCart}
+              />
+            ))}
+          </div>
+        </div>
+      ))}
+
+      {freeGames.length > 0 && (
+        <div className="game-section">
+          <h2>{sectionTitles.FREE}</h2>
+          <div className="manual-scroll-container">
+            {freeGames.map((game) => (
+              <NormalGameCard
+                key={game.id}
+                game={game}
+                onAddToCart={addToCart}
+              />
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );

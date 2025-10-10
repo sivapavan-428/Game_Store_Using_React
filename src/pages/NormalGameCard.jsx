@@ -1,93 +1,71 @@
 
-
-// import React from "react";
-// import "./NormalGameCard.css";
-
-// function NormalGameCard({ game, onAddToCart }) {
-//   const discountedPrice = game.discount
-//     ? Math.round(game.price * (1 - game.discount / 100))
-//     : game.price;
-
-//   return (
-//     <div className="normal-card">
-//       <div className="image-wrapper">
-//         <img
-//           src={game.imgBase64 || "/default-game.png"}
-//           alt={game.name}
-//           className="game-imagee"
-//         />
-//         <button
-//           className="add-to-cartt-btnn"
-//           onClick={() => onAddToCart(game)}
-//         >
-//           +
-//         </button>
-//       </div>
-//       <div className="game-details">
-//         <h3>{game.name}</h3>
-//         <div className="price-info">
-//           {game.discount && <span className="discountt">-{game.discount}%</span>}
-//           {game.discount && <span className="original-price">₹{game.price}</span>}
-//           <span className="final-price">₹{discountedPrice}</span>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default NormalGameCard;
-
-
-
-
-import React from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../utils/AuthContext";
+import { useNavigate } from "react-router-dom";
 import "./NormalGameCard.css";
 
 function NormalGameCard({ game, onAddToCart }) {
-  const isFree = !game.price || game.price === 0;
+  const { isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
+  const isFree = game.price === 0;
   const discountedPrice = !isFree && game.discount
     ? Math.round(game.price * (1 - game.discount / 100))
     : game.price;
 
+  const handleAddToCart = () => {
+    if (!isLoggedIn) {
+      setShowLoginPopup(true);
+      return;
+    }
+    onAddToCart(game);
+  };
+
   return (
-    <div className="normal-card">
-      <div className="image-wrapper">
-        <img
-          src={game.imgBase64 || "/default-game.png"}
-          alt={game.name}
-          className="game-imagee"
-        />
-        {!isFree && (
-          <button
-            className="add-to-cartt-btnn"
-            onClick={() => onAddToCart(game)}
-          >
-            +
-          </button>
-        )}
-      </div>
+    <>
+      <div className="normal-card">
+        <div className="image-wrapper">
+          <img
+            src={game.imgBase64 || "/default-game.png"}
+            alt={game.name}
+            className="game-imagee"
+          />
 
-      <div className="game-details">
-        <h3>{game.name}</h3>
+          <div className="badges">
+            {isFree && <span className="badge free-badge">Free</span>}
+            {game.discount > 0 && !isFree && (
+              <span className="badge discount-badge">-{game.discount}%</span>
+            )}
+          </div>
 
-        <div className="price-info">
-          {isFree ? (
-            <span className="free-label">Free</span>
-          ) : (
-            <>
-              {game.discount && (
-                <span className="discountt">-{game.discount}%</span>
-              )}
-              {game.discount && (
-                <span className="original-price">₹{game.price}</span>
-              )}
+          <button className="add-to-cart-btn" onClick={handleAddToCart}>+</button>
+        </div>
+
+        <div className="game-details">
+          <h3>{game.name}</h3>
+          {!isFree && (
+            <div className="price-info">
+              {game.discount > 0 && <span className="original-price">₹{game.price}</span>}
               <span className="final-price">₹{discountedPrice}</span>
-            </>
+            </div>
           )}
         </div>
       </div>
-    </div>
+
+      {showLoginPopup && (
+        <div className="login-popup-overlay">
+          <div className="login-popup-card">
+            <h2>Login Required</h2>
+            <p>You must login first to add this game to your cart.</p>
+            <div className="login-popup-actions">
+              <button onClick={() => setShowLoginPopup(false)} className="btn cancel">Cancel</button>
+              <button onClick={() => navigate("/login")} className="btn login">Login</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

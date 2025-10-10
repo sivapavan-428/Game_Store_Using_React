@@ -75,7 +75,7 @@ input{
     top: 6px;
 }
 
-label{
+.checkout-form label{
     border: 2px solid grey;
     border-radius: 10px;
     padding: 5px;    

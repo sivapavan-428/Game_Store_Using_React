@@ -1,44 +1,32 @@
-import React, { createContext, useState } from "react";
+
+import { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext();
 
-export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
-  const [purchasedGames, setPurchasedGames] = useState([]); // NEW
+export function CartProvider({ children }) {
+  const [cartItems, setCartItems] = useState(() => {
+    const storedCart = localStorage.getItem("cart");
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
 
-  const addToCart = (game) => {
-    if (!cartItems.find((item) => item.id === game.id)) {
-      setCartItems([...cartItems, game]);
-    } else {
-      alert(`${game.name} is already in your cart.`);
-    }
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  const addToCart = (item) => {
+   
+    setCartItems((prev) => [...prev, item]);
   };
 
-  const removeFromCart = (gameId) => {
-    setCartItems(cartItems.filter((item) => item.id !== gameId));
+  const removeFromCart = (id) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const purchaseAll = () => {
-    if (cartItems.length === 0) {
-      alert("Cart is empty.");
-      return;
-    }
-
-    // Add items to purchasedGames
-    setPurchasedGames([...purchasedGames, ...cartItems]);
-
-    alert(
-      "Purchase successful! You bought: " + cartItems.map((g) => g.name).join(", ")
-    );
-
-    setCartItems([]); // empty cart after purchase
-  };
+  const clearCart = () => setCartItems([]);
 
   return (
-    <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, purchaseAll, purchasedGames }}
-    >
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );
-};
+}

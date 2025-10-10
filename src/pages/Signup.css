@@ -1,191 +1,223 @@
-.signup {
-  max-width: 450px;
-  margin: 5% auto;
-  background-color: #1f1f1f;
-  padding: 40px 30px;
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #242323; /* Dark background */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+}
+
+.signup-card {
+  background: #000000; /* Dark card */
+  padding: 40px 35px;
   border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 10px;
-  color: #ff9800;
-  font-size: 2rem;
-}
-
-.signup p{
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 0.95rem;
-}
-
-input {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
   width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  border: 1px solid #555;
-  background-color: #121212;
-  color: white;
-  font-size: 1rem;
+  max-width: 450px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
 }
 
-.login-link{
-  color: #ff9800;
-  transition: 0.3s ease-in-out;
+.signup-card h2 {
+  margin-bottom: 10px;
+  color: #fff; /* Light text */
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.signup-card p {
+  font-size: 0.9rem;
+  text-align: center;
+  color: #ccc; /* Lighter text for dark mode */
+  margin-bottom: 25px;
+}
+
+.signup-card p a {
+  color: #4dabf7;
+  text-decoration: none;
   font-weight: 500;
 }
 
-.login-link:hover{
-  color: #858585;
-  transform: translateY(-3px);
+.signup-card p a:hover {
+  text-decoration: underline;
 }
 
-.fullName,
-.passwords {
+.full-name {
   display: flex;
   gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
 }
 
-.fullName input,
-.passwords input {
-  flex: 1;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(135deg, #2563eb, #1e40af);
-  border: none;
-  color: #fff;
-  font-weight: bold;
+.full-name input {
+  flex: 1 1 45%;
+  min-width: 140px; 
+  padding: 12px 15px;
   border-radius: 8px;
+  border: 1px solid #444;
+  background: #2c2c2c; /* Dark input */
+  color: #fff;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+
+.full-name input:focus {
+  border-color: #4dabf7;
+  outline: none;
+}
+
+.signup-card input[type="email"] {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  margin-bottom: 15px;
+  background: #2c2c2c;
+  color: #fff;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+
+.signup-card input[type="email"]:focus {
+  border-color: #4dabf7;
+  outline: none;
+}
+
+.password-wrapper {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding: 12px 40px 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #2c2c2c;
+  color: #fff;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+
+.password-wrapper input:focus {
+  border-color: #4dabf7;
+  outline: none;
+}
+
+.password-icon {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
   cursor: pointer;
+  color: #aaa;
   font-size: 1rem;
-  transition: all 0.3s ease;
+}
+
+.terms {
+  display: flex;
+  align-items: center;      
+  font-size: 0.85rem;
+  color: #ccc; /* Light text for dark mode */
+  margin-bottom: 20px;
+  gap: 8px;               
+}
+
+.terms input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-bottom: 6px;
+  margin-left: 15px;
+  vertical-align: middle;   
+  accent-color: #4dabf7;
+}
+
+.terms span, .terms a {
+  line-height: 1.2;        
+}
+
+.terms a {
+  color: #4dabf7;
+  text-decoration: none;
+}
+
+.terms a:hover {
+  text-decoration: underline;
+}
+
+.signup-card button[type="submit"] {
+  width: 100%;
+  padding: 12px 0;
+  background-color: #4dabf7;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.signup-card button[type="submit"]:hover {
+  background-color: #1971c2;
+}
+
+.signup-card button:disabled {
+  background-color: #789cc8;
+  cursor: not-allowed;
 }
 
 .or-text {
   text-align: center;
   margin: 20px 0;
-  font-size: 0.9rem;
-  color: #ccc;
+  font-size: 0.85rem;
+  color: #888;
 }
 
-.accounts {
+.social-login {
   display: flex;
-  gap: 10px;
+  justify-content: center;
+  gap: 15px;
 }
 
-.accounts .google, .accounts .apple{
+.social-btn {
   flex: 1;
-  padding: 10px;
+  padding: 10px 0;
   border-radius: 8px;
-  border: none;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  font-weight: bold;
-  background-color: #333;
-  transition: all 0.3s ease;
-}
-
-.accounts button a {
   color: #fff;
-  text-decoration: none;
-}
-
-.accounts button:hover {
-  background-color: #444;
-}
-
-.terms {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 20px;
-  font-size: 0.95rem;
-  cursor: pointer;
-}
-
-.terms input {
-  width: 18px;
-  height: 18px;
-  accent-color: #ff9800;
-}
-
-
-.terms{
   border: none;
+  transition: background 0.2s ease;
 }
 
-.email, .passwords{
-  width: 94%;
+.social-btn.google {
+  background: #db4437;
 }
 
-.terms a{
-  color: #ff9800;
+.social-btn.google:hover {
+  background: #b33b2f;
 }
 
-
-
-/* .password-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+.social-btn.facebook {
+  background: #1877f2;
 }
 
-.password-wrapper input {
-  flex: 1;
-  padding-right: 60px;
+.social-btn.facebook:hover {
+  background: #135ed8;
 }
 
-.password-wrapper .toggle-btn {
-  position: absolute;
-  right: 10px;
-  background: none;
-  border: none;
-  color: #555;
-  cursor: pointer;
-  font-size: 0.9rem;
-} */
+@media (max-width: 480px) {
+  .signup-card {
+    padding: 30px 20px;
+  }
 
-
-.password-wrapper {
-  position: relative;
-  margin-bottom: 15px;
-  width: 100%;
- /* border: 1px solid red; */
-}
-
-.password-wrapper input {
-  width: 88%;
-  padding: 12px 40px 12px 12px; 
-  border: 1px solid #646363;
-  border-radius: 8px;
-  font-size: 16px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.password-wrapper input:focus {
-  outline: none;
-}
-
-.password-wrapper .password-icon {
-  position: absolute;
-  top: 70%;
-  right: 2rem;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #c9c9c9;
-  font-size: 1.3rem;
-  transition: color 0.2s;
-}
-
-.password-wrapper .password-icon:hover {
-  color: #858585;
+  .full-name input {
+    flex: 1 1 100%;
+  }
 }

@@ -1,31 +1,27 @@
 
-
 .normal-card {
-  width: 180px;
-  margin: 0 10px;
-  border-radius: 10px;
+  width: 220px;
+  margin: 10px;
+  border-radius: 12px;
   overflow: hidden;
-  border: 1px solid #757575;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-  flex-shrink: 0;
-  background: #575656;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: #fff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
   cursor: pointer;
-  
 }
 
 .normal-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
 
 .image-wrapper {
   position: relative;
   width: 100%;
-  height: 180px;
+  height: 140px;
   overflow: hidden;
+  border-bottom: 1px solid #eee;
 }
 
 .game-imagee {
@@ -33,109 +29,273 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  opacity: 0.8;
+  transition: transform 0.3s;
 }
 
-.game-imagee:hover{
-  opacity: 1;
+.normal-card:hover .game-imagee {
+  transform: scale(1.05);
 }
 
-.add-to-cartt-btnn {
+.badges {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 2;
+}
+
+.badge {
+  padding: 3px 7px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.free-badge {
+  background-color: #28a745; 
+}
+
+.discount-badge {
+  background-color: #dc3545; 
+}
+
+.add-to-cart-btn {
   position: absolute;
   top: 8px;
   right: 8px;
-  background-color: #000000;
-  border: 2px solid rgb(255, 255, 255);
-  color: #ffffff;
-  font-weight: bold;
-  width: 25px;
-  height: 25px;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  display: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 2;
+  display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
 }
 
-.image-wrapper:hover .add-to-cartt-btnn {
-  display: flex;
+.image-wrapper:hover .add-to-cart-btn {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.add-to-cart-btn:hover {
+  background-color: #0056b3;
 }
 
 .game-details {
-  padding: 8px;
+  padding: 10px 8px;
   text-align: center;
 }
 
 .game-details h3 {
-  margin: 5px 0;
   font-size: 1rem;
-  font-weight: bold;
+  margin: 5px 0;
+  color: #333;
+  height: 2.5em; 
+  overflow: hidden;
 }
 
 .price-info {
   display: flex;
   justify-content: center;
+  gap: 6px;
   align-items: center;
-  gap: 5px;
-  font-size: 0.9rem;
-}
-
-.discountt {
-  color: #ffffff;
-  font-weight: 500;
-  border-radius: 6px;
-  background-color: #ff4d4f;
-  box-sizing: 0px 3px 6px red;
-  padding: 2px;
+  margin-top: 4px;
 }
 
 .original-price {
   text-decoration: line-through;
-  color: #b6b4b4;
-  font-size: clamp(0.6rem , 0.75rem, 1rem);
+  color: #888;
+  font-size: 0.85rem;
 }
 
 .final-price {
   font-weight: bold;
-  color: #000;
-  font-size: clamp(0.7rem, 1.1rem, 1.2rem);
+  color: #333;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 1200px) {
+  .normal-card {
+    width: 180px;
+  }
 }
 
 @media (max-width: 768px) {
   .normal-card {
-    width: 140px;
+    width: 150px;
   }
-  .image-wrapper {
-    height: 140px;
+
+  .add-to-cart-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 1rem;
   }
-  .price-info {
-    font-size: 0.8rem;
+
+  .game-details h3 {
+    font-size: 0.9rem;
+  }
+
+  .final-price {
+    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 480px) {
   .normal-card {
-    width: 120px;
+    width: 140px;
   }
-  .image-wrapper {
-    height: 120px;
-  }
-  .price-info {
-    font-size: 0.75rem;
-  }
-  .add-to-cartt-btnn {
-    width: 24px;
-    height: 24px;
-    font-size: 0.9rem;
+
+  .game-details h3 {
+    font-size: 0.85rem;
   }
 }
 
 
-.free-label {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.login-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.login-popup-card {
+  background: #fff;
+  padding: 25px 20px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 350px;
+  width: 90%;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  animation: popin 0.2s ease-out;
+}
+
+@keyframes popin {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.login-popup-card h2 {
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+}
+
+.login-popup-card p {
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.login-popup-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.login-popup-actions .btn {
+  flex: 1;
+  padding: 8px 0;
+  border-radius: 8px;
+  border: none;
   font-weight: bold;
-  color: #00ff99;
-  background: rgba(0, 255, 153, 0.1);
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.login-popup-actions .cancel {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.login-popup-actions .cancel:hover {
+  background: #e0e0e0;
+}
+
+.login-popup-actions .login {
+  background: #1890ff;
+  color: #fff;
+}
+
+.login-popup-actions .login:hover {
+  background: #096dd9;
+}
+
+.image-wrapper {
+  position: relative;
+}
+
+.add-to-cart-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #1890ff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.image-wrapper:hover .add-to-cart-btn {
+  opacity: 1;
+}
+
+.badges {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.badge {
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.free-badge {
+  background: #52c41a;
+}
+
+.discount-badge {
+  background: #f5222d;
 }

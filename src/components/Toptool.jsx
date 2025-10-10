@@ -46,8 +46,9 @@ function Toptool() {
           </Link>
 
           {isLoggedIn ? (
-            <Link to="/profile" className="auth-btn">
-              <CgProfile size={20} className="me-1" /> Profile
+            <Link to="/profile" className="profile-btn">
+              <CgProfile size={30} className="me-1" /> 
+
             </Link>
           ) : (
             <Link to="/login" className="auth-btn loginn-btn">
