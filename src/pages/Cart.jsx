@@ -1,16 +1,11 @@
-
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "./Cart.css";
 import { CartContext } from "../utils/CartContext";
-import { AuthContext } from "../utils/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const { cartItems, removeFromCart } = useContext(CartContext);
-  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const [showPopup, setShowPopup] = useState(false);
 
   const subtotal = cartItems.reduce((sum, item) => {
     const discountedPrice = item.discount
@@ -25,10 +20,6 @@ function Cart() {
   const total = subtotal + gst + platformCharges + deliveryCharges;
 
   const handleCheckout = () => {
-    if (!user) {
-      setShowPopup(true);
-      return;
-    }
     navigate("/checkout");
   };
 
@@ -45,7 +36,10 @@ function Cart() {
                 : item.price;
               return (
                 <div className="cart-item" key={item.id}>
-                  <img src={item.imgBase64 || "/default-game.png"} alt={item.name} />
+                  <img
+                    src={item.imgBase64 || "/default-game.png"}
+                    alt={item.name}
+                  />
                   <div className="item-info">
                     <h3>{item.name}</h3>
                     <p>Awesome game for your collection</p>
@@ -97,30 +91,6 @@ function Cart() {
             <button className="checkout-btn" onClick={handleCheckout}>
               Proceed to Checkout
             </button>
-          </div>
-        </div>
-      )}
-
-      {/* Popup Modal */}
-      {showPopup && (
-        <div className="popup-overlay">
-          <div className="popup-box">
-            <h3>Login Required</h3>
-            <p>Please log in first to purchase games.</p>
-            <div className="popup-buttons">
-              <button
-                className="login-btn"
-                onClick={() => navigate("/login")}
-              >
-                Go to Login
-              </button>
-              <button
-                className="cancel-btn"
-                onClick={() => setShowPopup(false)}
-              >
-                Cancel
-              </button>
-            </div>
           </div>
         </div>
       )}
