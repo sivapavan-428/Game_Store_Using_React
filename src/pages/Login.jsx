@@ -1,5 +1,3 @@
-
-
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../utils/AuthContext";
@@ -15,35 +13,43 @@ function Login() {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    if (!email || !password) return alert("Please fill all fields");
+const handleLogin = async (e) => {
+  e.preventDefault();
+  if (!email || !password) return alert("Please fill all fields");
 
-    setLoading(true);
-    try {
-      const response = await fetch("http://localhost:8081/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+  setLoading(true);
+  try {
+    const response = await fetch("http://localhost:8081/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem("user", JSON.stringify(data));
-        login();
-        alert(`Welcome back, ${data.firstName}!`);
-        navigate("/home");
-      } else {
-        const error = await response.text();
-        alert(`Login failed: ${error}`);
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Login response:", data); 
+      
+      const userObj = {
+        id: data.userId || data.id, 
+        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName
+      };
+      
+      login(userObj);
+      alert(`Welcome back, ${data.firstName}!`);
+      navigate("/home");
+    } else {
+      const error = await response.text();
+      alert(`Login failed: ${error}`);
     }
-  };
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="login-container">

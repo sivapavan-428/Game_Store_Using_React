@@ -1,13 +1,16 @@
+
 import React, { useContext } from "react";
 import "./Cart.css";
 import { CartContext } from "../utils/CartContext";
 import { useNavigate } from "react-router-dom";
 
 function Cart() {
-  const { cartItems, removeFromCart } = useContext(CartContext);
+  const { cartItems = [], removeFromCart } = useContext(CartContext);
   const navigate = useNavigate();
 
-  const subtotal = cartItems.reduce((sum, item) => {
+  const itemsArray = Array.isArray(cartItems) ? cartItems : [];
+
+  const subtotal = itemsArray.reduce((sum, item) => {
     const discountedPrice = item.discount
       ? Math.round(item.price * (1 - item.discount / 100))
       : item.price;
@@ -15,8 +18,8 @@ function Cart() {
   }, 0);
 
   const gst = subtotal * 0.18;
-  const platformCharges = cartItems.length > 0 ? 8 : 0;
-  const deliveryCharges = cartItems.length > 0 ? 31 : 0;
+  const platformCharges = itemsArray.length > 0 ? 8 : 0;
+  const deliveryCharges = itemsArray.length > 0 ? 31 : 0;
   const total = subtotal + gst + platformCharges + deliveryCharges;
 
   const handleCheckout = () => {
@@ -25,12 +28,12 @@ function Cart() {
 
   return (
     <div className="cart-page">
-      {cartItems.length === 0 ? (
+      {itemsArray.length === 0 ? (
         <p className="empty-cart">🛒 Your cart is empty</p>
       ) : (
         <div className="cart-container">
           <div className="cart-items">
-            {cartItems.map((item) => {
+            {itemsArray.map((item) => {
               const discountedPrice = item.discount
                 ? Math.round(item.price * (1 - item.discount / 100))
                 : item.price;
@@ -55,7 +58,7 @@ function Cart() {
                     )}
                     <button
                       className="remove-btn"
-                      onClick={() => removeFromCart(item.id)}
+                      onClick={() => removeFromCart(item.gameId)}
                     >
                       Remove
                     </button>

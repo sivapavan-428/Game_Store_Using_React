@@ -9,14 +9,16 @@ import "slick-carousel/slick/slick-theme.css";
 
 function App() {
   return (
-    <BrowserRouter>
-      <CartProvider>
-        <AuthProvider>  
-          <AppRoutes /> 
-        </AuthProvider>
-      </CartProvider>
+     <BrowserRouter>
+      <AuthProvider>      
+        <CartProvider>    
+          <AppRoutes />
+        </CartProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
 
 export default App;
+
+

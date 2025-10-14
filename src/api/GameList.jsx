@@ -5,7 +5,7 @@
 //   const [games, setGames] = useState([]);
 
 //   useEffect(() => {
-//     axios.get("http://localhost:8080/games/getAll") 
+//     axios.get("http://localhost:8081/games/getAll") 
 //       .then(res => setGames(res.data))
 //       .catch(err => console.error(err));
 //   }, []);

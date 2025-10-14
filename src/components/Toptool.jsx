@@ -1,3 +1,4 @@
+
 import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { CgGames, CgProfile } from "react-icons/cg";
@@ -8,59 +9,51 @@ import { AuthContext } from "../utils/AuthContext";
 import "./Toptool.css";
 
 function Toptool() {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems = [] } = useContext(CartContext); 
   const { isLoggedIn } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
 
+  const cartCount = cartItems.length; 
+
   return (
     <>
-
       <nav className="toptool-desktop">
-
         <div className="logo-name">
           <CgGames size={45} className="logo" />
           <span>FEQuest</span>
         </div>
 
         <div className="nav-links">
-          <ul >
+          <ul>
             <li><NavLink to="/home" className="nav-link">Home</NavLink></li>
             <li><NavLink to="/categories" className="nav-link">Categories</NavLink></li>
             <li><NavLink to="/library" className="nav-link">Library</NavLink></li>
           </ul>
         </div>
 
-
         <div className="search-container">
-          {/* <FaMagnifyingGlass className="search-icon" /> */}
           <input type="text" placeholder="Search games..." />
         </div>
 
         <div>
           <Link to="/cart" className="cart">
             <FaCartShopping size={20} />
-            {cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
+            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
           </Link>
 
           {isLoggedIn ? (
             <Link to="/profile" className="profile-btn">
-              <CgProfile size={30} className="me-1" /> 
-
+              <CgProfile size={30} className="me-1" />
             </Link>
           ) : (
             <Link to="/login" className="auth-btn loginn-btn">
               Sign In
             </Link>
           )}
-
         </div>
-
-
-
-
       </nav>
 
       <nav className="toptool-mobile">
@@ -72,7 +65,7 @@ function Toptool() {
         <div className="right-actions">
           <Link to="/cart" className="cart">
             <FaCartShopping size={20} />
-            {cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
+            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
           </Link>
           <GiHamburgerMenu size={20} onClick={toggleMenu} className="hamburger" />
         </div>
@@ -108,7 +101,6 @@ function Toptool() {
           </Link>
         )}
       </div>
-
 
       {menuOpen && <div className="drawer-overlay" onClick={closeMenu}></div>}
     </>
