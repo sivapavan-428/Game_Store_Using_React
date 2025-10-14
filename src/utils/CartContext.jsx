@@ -23,33 +23,6 @@ export function CartProvider({ children }) {
       });
   }, [user]);
 
-  // const addToCart = async (game) => {
-  //   if (!isLoggedIn) return alert("Please login first");
-
-  //   if (cartItems.some((item) => item.game.id === game.id)) {
-  //     return alert(`${game.name} is already in the cart`);
-  //   }
-
-  //   try {
-  //     const res = await fetch(
-  //       `http://localhost:8081/cart/add?userId=${user.id}&gameId=${game.id}`,
-  //       { method: "POST" }
-  //     );
-
-  //     if (!res.ok) {
-  //       const errData = await res.json();
-  //       throw new Error(errData.message || "Failed to add to cart");
-  //     }
-
-  //     const newItem = await res.json();
-  //     setCartItems((prev) => (Array.isArray(prev) ? [...prev, newItem] : [newItem]));
-  //     alert(`${game.name} added to cart ✅`);
-  //   } catch (err) {
-  //     console.error(err);
-  //     alert(err.message || "Failed to add item to cart");
-  //   }
-  // };
-
   const addToCart = async (game) => {
   if (!isLoggedIn) return alert("Please login first");
   if (!game || !game.id) return alert("Invalid game object");
@@ -85,27 +58,6 @@ export function CartProvider({ children }) {
     alert(err.message || "Failed to add item to cart");
   }
 };
-
-
-  // const removeFromCart = async (gameId) => {
-  //   if (!isLoggedIn) return alert("Please login first");
-
-  //   try {
-  //     const res = await fetch(
-  //       `http://localhost:8081/cart/remove?userId=${user.id}&gameId=${gameId}`,
-  //       { method: "DELETE" }
-  //     );
-
-  //     if (!res.ok) throw new Error("Failed to remove item");
-
-  //     setCartItems((prev) =>
-  //       Array.isArray(prev) ? prev.filter((item) => item.game.id !== gameId) : []
-  //     );
-  //   } catch (err) {
-  //     console.error(err);
-  //     alert(err.message || "Failed to remove item from cart");
-  //   }
-  // };
 
   const removeFromCart = async (gameId) => {
   if (!isLoggedIn) return alert("Please login first");
