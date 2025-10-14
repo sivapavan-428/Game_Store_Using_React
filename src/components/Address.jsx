@@ -1,26 +1,27 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
+import axios from "axios";
+import { AuthContext } from "../utils/AuthContext"; 
 import "./Address.css";
 
 function Address() {
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext); 
 
-  const [addresses, setAddresses] = useState([
-    {
-      id: 1,
-      name: "John Doe",
-      phone: "+91 1234567890",
-      house: "123",
-      landmark: "Near Park",
-      street: "MG Road",
-      city: "Hyderabad",
-      zip: "500001",
-    },
-  ]);
-
+  const [addresses, setAddresses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentAddress, setCurrentAddress] = useState(null);
+
+  useEffect(() => {
+    if (user?.id) {
+      axios
+        .get(`http://localhost:8081/address/user/${user.id}`)
+        .then((res) => setAddresses(res.data))
+        .catch((err) => console.error("Failed to fetch addresses:", err));
+    }
+  }, [user]);
 
   const openModal = (address = null) => {
     setCurrentAddress(address || {});
@@ -38,20 +39,44 @@ function Address() {
   };
 
   const handleSave = () => {
-    if (currentAddress.id) {
-      setAddresses(
-        addresses.map((addr) =>
-          addr.id === currentAddress.id ? currentAddress : addr
+    if (!user?.id) return alert("User not logged in");
+
+    const apiCall = currentAddress.id
+      ? axios.put(
+          `http://localhost:8081/address/update/${currentAddress.id}`,
+          currentAddress
         )
-      );
-    } else {
-      setAddresses([...addresses, { ...currentAddress, id: Date.now() }]);
-    }
-    closeModal();
+      : axios.post(
+          `http://localhost:8081/address/add/${user.id}`,
+          currentAddress
+        );
+
+    apiCall
+      .then((res) => {
+        if (currentAddress.id) {
+          setAddresses(
+            addresses.map((addr) =>
+              addr.id === res.data.id ? res.data : addr
+            )
+          );
+        } else {
+          setAddresses([...addresses, res.data]);
+        }
+        closeModal();
+      })
+      .catch((err) => {
+        console.error("Failed to save address:", err);
+        alert("Failed to save address");
+      });
   };
 
   const handleDelete = (id) => {
-    setAddresses(addresses.filter((addr) => addr.id !== id));
+    axios
+      .delete(`http://localhost:8081/address/delete/${id}`)
+      .then(() =>
+        setAddresses(addresses.filter((addr) => addr.id !== id))
+      )
+      .catch((err) => console.error("Failed to delete address:", err));
   };
 
   const isFormValid = () => {
@@ -75,14 +100,25 @@ function Address() {
         {addresses.map((addr) => (
           <div key={addr.id} className="address-box">
             <div className="address-info">
-              <p><strong>{addr.name}</strong></p>
+              <p>
+                <strong>{addr.name}</strong>
+              </p>
               <p>{addr.phone}</p>
-              <p>{addr.house}, {addr.landmark}</p>
-              <p>{addr.street}, {addr.city} - {addr.zip}</p>
+              <p>
+                {addr.house}, {addr.landmark}
+              </p>
+              <p>
+                {addr.street}, {addr.city} - {addr.zip}
+              </p>
             </div>
             <div className="address-actions">
-              <button onClick={() => openModal(addr)} className="edit-btn">Edit</button>
-              <button onClick={() => handleDelete(addr.id)} className="delete-btn">
+              <button onClick={() => openModal(addr)} className="edit-btn">
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(addr.id)}
+                className="delete-btn"
+              >
                 <FaTrash />
               </button>
             </div>
@@ -90,7 +126,6 @@ function Address() {
         ))}
       </div>
 
-    
       <button className="add-address-btn" onClick={() => openModal({})}>
         Add Address
       </button>
@@ -157,7 +192,8 @@ function Address() {
               <button
                 onClick={handleSave}
                 className="save-btn"
-                disabled={!isFormValid()}>
+                disabled={!isFormValid()}
+              >
                 Save
               </button>
               <button onClick={closeModal} className="cancel-btn">

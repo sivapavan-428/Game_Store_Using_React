@@ -3,20 +3,30 @@ import { CartContext } from "../utils/CartContext";
 import "./Library.css";
 
 function Library() {
-  const { purchasedGames } = useContext(CartContext); 
+  const { purchasedGames = [] } = useContext(CartContext); // default to empty array
 
   return (
     <div className="library-page">
-      <h1>My Library</h1>
+      <h1>🎮 My Library</h1>
+
       {purchasedGames.length === 0 ? (
-        <p>You don't own any games yet!</p>
+        <p className="no-gamess">You don't own any games yet!</p>
       ) : (
-        <div className="games-carousel">
+        <div className="games-gridd">
           {purchasedGames.map((game) => (
-            <div className="game-card" key={game.id}>
-              <img src={game.img} alt={game.name} />
-              <div className="game-info">
+            <div className="game-cardd" key={game.id}>
+              <img
+                src={game.imgBase64 || "/default-game.png"}
+                alt={game.name}
+                className="gamme-image"
+              />
+              <div className="gamme-info">
                 <h3>{game.name}</h3>
+                <p className="ggame-price">
+                  {game.price
+                    ? `₹${game.discount ? Math.round(game.price * (1 - game.discount / 100)) : game.price}`
+                    : "Free"}
+                </p>
               </div>
             </div>
           ))}
