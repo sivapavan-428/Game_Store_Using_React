@@ -4,6 +4,7 @@
   background: linear-gradient(to right, #f0f4f8, #d9e2ec);
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
 }
 
 .library-page h1 {

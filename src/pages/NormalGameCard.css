@@ -175,7 +175,7 @@
 
 @media (max-width: 480px) {
   .normal-card {
-    width: 90%;
+    width: 40%;
     margin: 8px 10px;
   }
 
@@ -193,4 +193,10 @@
     font-size: 0.9rem;
   }
 
+}
+
+@media (max-width : 375px){
+  .normal-card{
+    width: 50%;
+  }
 }

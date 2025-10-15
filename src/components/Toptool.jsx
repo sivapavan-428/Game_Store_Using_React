@@ -1,5 +1,5 @@
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { CgGames, CgProfile } from "react-icons/cg";
 import { FaCartShopping, FaMagnifyingGlass } from "react-icons/fa6";
@@ -9,14 +9,22 @@ import { AuthContext } from "../utils/AuthContext";
 import "./Toptool.css";
 
 function Toptool() {
-  const { cartItems = [] } = useContext(CartContext); 
+  const { cartItems = [] } = useContext(CartContext);
   const { isLoggedIn } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
 
-  const cartCount = cartItems.length; 
+  const cartCount = cartItems.length;
+
+  const[user, setUser] = useState({firstName : "", lastName : " "});
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if(storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   return (
     <>
@@ -63,10 +71,11 @@ function Toptool() {
         </div>
 
         <div className="right-actions">
-          <Link to="/cart" className="cart">
-            <FaCartShopping size={20} />
-            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
-          </Link>
+
+          <div className="search-container mobile-search">
+            <input type="text" placeholder="Search games..." />
+          </div>
+
           <GiHamburgerMenu size={20} onClick={toggleMenu} className="hamburger" />
         </div>
       </nav>
@@ -77,23 +86,28 @@ function Toptool() {
             <CgGames size={30} className="logo" />
             <span>FEQuest</span>
           </div>
-          <button className="close-btn" onClick={closeMenu}>×</button>
+          {/* <button className="close-btn" onClick={closeMenu}>×</button> */}
         </div>
 
-        <ul className="nav-links">
-          <li><NavLink to="/home" className="nav-link" onClick={closeMenu}>Home</NavLink></li>
-          <li><NavLink to="/categories" className="nav-link" onClick={closeMenu}>Categories</NavLink></li>
-          <li><NavLink to="/library" className="nav-link" onClick={closeMenu}>Library</NavLink></li>
-        </ul>
+        <div>
+          <ul className="nav-links">
+            <li><NavLink to="/home" className="nav-link" onClick={closeMenu}>Home</NavLink></li>
+            <li><NavLink to="/categories" className="nav-link" onClick={closeMenu}>Categories</NavLink></li>
+            <li><NavLink to="/library" className="nav-link" onClick={closeMenu}>Library</NavLink></li>
+          </ul>
 
-        <div className="search-container">
-          {/* <FaMagnifyingGlass className="search-icon" /> */}
-          <input type="text" placeholder="Search games..." />
+          <Link to="/cart" className="cart drawer-cart">
+            <FaCartShopping size={20} />
+            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+          </Link>
+
         </div>
-
         {isLoggedIn ? (
-          <Link to="/profile" className="auth-btn drawer-btn" onClick={closeMenu}>
-            <CgProfile size={20} className="me-1" /> Profile
+          <Link to="/profile" className="authh-btn drawerr-btn" onClick={closeMenu}>
+            <CgProfile size={40} className="me-1" /> 
+            <span className="user-name">
+              {user.firstName} {user.lastName}
+            </span>
           </Link>
         ) : (
           <Link to="/login" className="auth-btn drawer-btn" onClick={closeMenu}>
