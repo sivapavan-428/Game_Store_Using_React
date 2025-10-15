@@ -14,7 +14,7 @@ export function CartProvider({ children }) {
       return;
     }
 
-    fetch(`http://localhost:8081/cart/user/${user.id}`)
+    fetch(`http://localhost:8081/auth/cart/user/${user.id}`)
       .then((res) => res.json())
       .then((data) => setCartItems(Array.isArray(data) ? data : []))
       .catch((err) => {
@@ -33,7 +33,7 @@ export function CartProvider({ children }) {
 
   try {
     const res = await fetch(
-      `http://localhost:8081/cart/add?userId=${user.id}&gameId=${game.id}`,
+      `http://localhost:8081/auth/cart/add?userId=${user.id}&gameId=${game.id}`,
       { method: "POST" }
     );
 
@@ -64,7 +64,7 @@ export function CartProvider({ children }) {
 
   try {
     const res = await fetch(
-      `http://localhost:8081/cart/remove?userId=${user.id}&gameId=${gameId}`,
+      `http://localhost:8081/auth/cart/remove?userId=${user.id}&gameId=${gameId}`,
       { method: "DELETE" }
     );
 
@@ -84,7 +84,7 @@ export function CartProvider({ children }) {
     if (!isLoggedIn) return alert("Please login first");
 
     try {
-      const res = await fetch(`http://localhost:8081/cart/clear/${user.id}`, {
+      const res = await fetch(`http://localhost:8081/auth/cart/clear/${user.id}`, {
         method: "DELETE",
       });
 

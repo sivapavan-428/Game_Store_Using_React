@@ -87,7 +87,7 @@ function Toptool() {
         </ul>
 
         <div className="search-container">
-          <FaMagnifyingGlass className="search-icon" />
+          {/* <FaMagnifyingGlass className="search-icon" /> */}
           <input type="text" placeholder="Search games..." />
         </div>
 

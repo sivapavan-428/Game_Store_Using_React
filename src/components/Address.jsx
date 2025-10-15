@@ -17,7 +17,7 @@ function Address() {
   useEffect(() => {
     if (user?.id) {
       axios
-        .get(`http://localhost:8081/address/user/${user.id}`)
+        .get(`http://localhost:8081/auth/address/user/${user.id}`)
         .then((res) => setAddresses(res.data))
         .catch((err) => console.error("Failed to fetch addresses:", err));
     }
@@ -43,11 +43,11 @@ function Address() {
 
     const apiCall = currentAddress.id
       ? axios.put(
-          `http://localhost:8081/address/update/${currentAddress.id}`,
+          `http://localhost:8081/auth/address/update/${currentAddress.id}`,
           currentAddress
         )
       : axios.post(
-          `http://localhost:8081/address/add/${user.id}`,
+          `http://localhost:8081/auth/address/add/${user.id}`,
           currentAddress
         );
 
@@ -72,7 +72,7 @@ function Address() {
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:8081/address/delete/${id}`)
+      .delete(`http://localhost:8081/auth/address/delete/${id}`)
       .then(() =>
         setAddresses(addresses.filter((addr) => addr.id !== id))
       )

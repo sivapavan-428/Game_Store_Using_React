@@ -30,7 +30,7 @@ function Checkout() {
         const user = JSON.parse(localStorage.getItem("user")); 
         if (user && user.id) {
             axios
-                .get(`http://localhost:8081/address/user/${user.id}`)
+                .get(`http://localhost:8081/auth/address/user/${user.id}`)
                 .then((res) => setAddresses(res.data))
                 .catch((err) => console.log("Address API error:", err));
         }
@@ -58,7 +58,7 @@ function Checkout() {
                 totalAmount: total.toFixed(),
             };
 
-            await axios.post("http://localhost:8081/order/create", payload);
+            await axios.post("http://localhost:8081/auth/order/create", payload);
 
             const library = JSON.parse(localStorage.getItem("library")) || [];
             const newLibrary = [

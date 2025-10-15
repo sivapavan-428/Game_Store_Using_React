@@ -21,7 +21,7 @@ function Home() {
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    fetch("http://localhost:8081/api/games/getAll")
+    fetch("http://localhost:8081/auth/api/games/getAll")
       .then((res) => res.json())
       .then((data) => setGames(data))
       .catch((err) => console.error("Error fetching games:", err));

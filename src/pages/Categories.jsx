@@ -12,7 +12,7 @@ function Categories() {
 
   useEffect(() => {
     genresList.forEach((genre) => {
-      fetch(`http://localhost:8081/api/games/getByGenre/${genre}`)
+      fetch(`http://localhost:8081/auth/api/games/getByGenre/${genre}`)
         .then((res) => res.json())
         .then((data) => {
           setGamesByGenre((prev) => ({ ...prev, [genre]: data }));
