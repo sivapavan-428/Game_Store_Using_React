@@ -74,7 +74,7 @@ const handleLogin = async (e) => {
               required
             />
             <span
-              className="password-icon"
+              className="passwordd-icon"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}

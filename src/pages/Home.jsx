@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState, useContext } from "react";
 import Slider from "react-slick";
-import TrendingGameCard from "./TrendingGamecard.jsx"
+import TrendingGameCard from "./TrendingGamecard.jsx";
 import NormalGameCard from "./NormalGameCard.jsx";
 import { CartContext } from "../utils/CartContext";
 import "./Home.css";
@@ -51,7 +51,6 @@ function Home() {
 
   return (
     <div className="home-page">
-
       {trendingGames.length > 0 && (
         <div className="trending-section">
           <h2>{sectionTitles.TRENDING}</h2>

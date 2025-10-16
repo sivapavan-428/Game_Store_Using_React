@@ -38,9 +38,9 @@ function Cart() {
                 ? Math.round(item.price * (1 - item.discount / 100))
                 : item.price;
               return (
-                <div className="cart-item" key={item.id}>
+                <div className="cart-item" key={item.gameId}>
                   <img
-                    src={item.imgBase64 || "/default-game.png"}
+                    src={item.imgUrl || item.imgBase64 || "/default-game.png"}
                     alt={item.name}
                   />
                   <div className="item-info">

@@ -30,8 +30,11 @@ function Toptool() {
     <>
       <nav className="toptool-desktop">
         <div className="logo-name">
-          <CgGames size={45} className="logo" />
-          <span>FEQuest</span>
+          <NavLink to="/" className="start-page">
+            <CgGames size={45} className="logo" />
+            <span>FEQuest</span>
+          </NavLink>
+          
         </div>
 
         <div className="nav-links">
@@ -54,7 +57,7 @@ function Toptool() {
 
           {isLoggedIn ? (
             <Link to="/profile" className="profile-btn">
-              <CgProfile size={30} className="me-1" />
+              <CgProfile size={35} className="me-1" />
             </Link>
           ) : (
             <Link to="/login" className="auth-btn loginn-btn">
@@ -66,7 +69,7 @@ function Toptool() {
 
       <nav className="toptool-mobile">
         <div className="logo-name">
-          <CgGames size={30} className="logo" />
+          <CgGames size={40} className="logo" />
           <span>FEQuest</span>
         </div>
 
@@ -83,7 +86,7 @@ function Toptool() {
       <div className={`mobile-drawer ${menuOpen ? "open" : ""}`}>
         <div className="drawer-header">
           <div className="logo-name">
-            <CgGames size={30} className="logo" />
+            <CgGames size={40} className="logo" />
             <span>FEQuest</span>
           </div>
           {/* <button className="close-btn" onClick={closeMenu}>×</button> */}

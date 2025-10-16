@@ -1,3 +1,4 @@
+
 import React, { useContext } from "react";
 import { CartContext } from "../utils/CartContext";
 import "./Library.css";
@@ -16,7 +17,7 @@ function Library() {
           {purchasedGames.map((game) => (
             <div className="game-cardd" key={game.id}>
               <img
-                src={game.imgBase64 || "/default-game.png"}
+                src={game.imgUrl ||game.imgBase64 || "/default-game.png"}
                 alt={game.name}
                 className="gamme-image"
               />

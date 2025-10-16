@@ -22,7 +22,7 @@ function TrendingGameCard({ game }) {
   return (
     <div className="trending-card">
       <img
-        src={game.imgBase64 || "/default-game.png"}
+        src={game.imgUrl || game.imgBase64 || "/default-game.png"}
         alt={game.name}
         className="game-image"
       />

@@ -130,7 +130,7 @@
 .terms input[type="checkbox"] {
   width: 18px;
   height: 18px;
-  margin-bottom: 6px;
+  margin-bottom: 0px;
   margin-left: 15px;
   vertical-align: middle;   
   accent-color: #4dabf7;
